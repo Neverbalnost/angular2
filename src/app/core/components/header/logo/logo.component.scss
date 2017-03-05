@@ -1,0 +1,15 @@
+.logo {
+	float: left;
+
+	&-title {
+		float: left;
+		font-size: 1.6rem;
+		line-height: 1;
+		margin-top: 40px;
+	}
+
+	&-image {
+		height:100px;
+		float: left;
+	}
+}

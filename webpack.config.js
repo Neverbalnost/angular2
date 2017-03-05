@@ -6,7 +6,21 @@
 switch (process.env.NODE_ENV) {
   case 'prod':
   case 'production':
-    module.exports = require('./config/webpack.prod')({env: 'production'});
+    module.exports = require('./config/webpack.prod')({
+      env: 'production',
+
+      entry: {
+          app: './app.module.ts'
+      },
+
+      resolve: {
+        extensions: ['.js', '.ts']
+      },
+
+      plugins: [
+        new webpack.optimize.UglifyJsPlugin()
+      ]
+    });
     break;
   case 'test':
   case 'testing':
