@@ -1,15 +1,14 @@
 .logo {
-	float: left;
+    display: flex;
+    align-items: center;
 
 	&-title {
-		float: left;
 		font-size: 1.6rem;
 		line-height: 1;
-		margin-top: 40px;
 	}
 
 	&-image {
 		height:100px;
-		float: left;
+		margin-right: 20px;
 	}
 }

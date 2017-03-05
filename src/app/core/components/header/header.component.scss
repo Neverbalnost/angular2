@@ -1,9 +1,12 @@
 @import "../../../styles/variables/colors.scss";
 
 .main-navbar {
+	align-items: center;
 	background-color: $grey;
 	color: $black;
-	padding: 20px 0;
+	display: flex;
+	justify-content: space-between;
+    padding: 20px 10px;
 
 	&:after {
 		clear: both;
@@ -12,30 +15,12 @@
 	}
 }
 
-.menu {
-	float: right;
-	font-size: 0.8rem;
-	padding-top: 20px;
+.nav,
+login,
+logo {
+    flex-grow: 1;
+}
 
-	.menu-item {
-		text-transform: uppercase;
-		border-left: solid 1px $white;
-		border-right: solid 1px $white;
-		padding: 0 15px;
-		display: inline-block;
-		position: relative;
-		cursor: pointer;
-
-		&:first-child {
-			border: none;
-		}
-
-		&:last-child {
-			border: none;
-		}
-
-		&.active {
-			background-color: darken($c-primary, 10%);
-		}
-	}
+login {
+	text-align: right;
 }
