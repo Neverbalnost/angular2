@@ -5,25 +5,25 @@ import { TodoService } from '../../core/services';
 import { TodoItem } from '../../core/entities';
 
 @Component({
-	selector: 'home',
+	selector: 'courses',
 	encapsulation: ViewEncapsulation.None,
 	providers: [],
-	styles: [require('./home.styles.scss')],
-	template: require('./home.template.html')
+	styles: [require('./courses.styles.scss')],
+	template: require('./courses.template.html')
 })
-export class HomeComponent implements OnInit, OnDestroy {
+export class CoursesComponent implements OnInit, OnDestroy {
 	private todoServiceSubscription: Subscription;
 	private todoList: TodoItem[];
 	private isLoading: boolean = false;
 
 	constructor(private todoService: TodoService) {
-		console.log('Home page constructor');
+		console.log('Courses page constructor');
 
 		this.todoList = [];
 	}
 
 	public ngOnInit() {
-		console.log('Home page init');
+		console.log('Courses page init');
 
 		this.isLoading = true;
 		this.todoServiceSubscription = this.todoService.getTodoItems().subscribe((res: TodoItem[]) => {
