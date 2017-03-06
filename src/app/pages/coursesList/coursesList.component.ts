@@ -5,13 +5,13 @@ import { TodoService } from '../../core/services';
 import { TodoItem } from '../../core/entities';
 
 @Component({
-	selector: 'courses',
+	selector: 'courses-list',
 	encapsulation: ViewEncapsulation.None,
 	providers: [],
-	styles: [require('./courses.styles.scss')],
-	template: require('./courses.template.html')
+	styles: [require('./coursesList.styles.scss')],
+	template: require('./coursesList.template.html')
 })
-export class CoursesComponent implements OnInit, OnDestroy {
+export class CoursesListComponent implements OnInit, OnDestroy {
 	private todoServiceSubscription: Subscription;
 	private todoList: TodoItem[];
 	private isLoading: boolean = false;

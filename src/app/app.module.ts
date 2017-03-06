@@ -27,7 +27,7 @@ import { NoContentComponent } from './pages/no-content';
 import { HeaderModule, SearchModule, FooterModule } from './core/components';
 
 // Pages
-import { CoursesModule } from './pages/courses';
+import { CoursesListModule } from './pages/coursesList';
 
 // Services
 
@@ -55,7 +55,7 @@ const APP_PROVIDERS = [
 		HeaderModule,
 		SearchModule,
 		FooterModule,
-		CoursesModule
+		CoursesListModule
 	],
 	providers: [ // expose our Services and Providers into Angular's dependency injection
 		ENV_PROVIDERS,
