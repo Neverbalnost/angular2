@@ -31,11 +31,11 @@ import { CoursesListModule } from './pages/coursesList';
 
 // Services
 
-import { TodoService } from './core/services';
+import { CourseService } from './core/services';
 
 // Application wide providers
 const APP_PROVIDERS = [
-	TodoService
+	CourseService
 ];
 
 /**

@@ -1,13 +1,13 @@
 export class TodoItem {
 	public title: string;
-	public subTitle: string;
+	public description: string;
 	public startDate: Date;
-	public endDate: Date;
+	public id: Date;
 
 	constructor(title: string, subTitle: string, startDate: Date, endDate: Date) {
 		this.title = title;
-		this.subTitle = subTitle;
+		this.description = subTitle;
 		this.startDate = startDate;
-		this.endDate = endDate;
+		this.id = endDate;
 	}
 }

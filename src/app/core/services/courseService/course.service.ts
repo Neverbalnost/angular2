@@ -7,9 +7,9 @@ import 'rxjs/add/operator/map';
 import { TodoItem } from '../../entities';
 
 @Injectable()
-export class TodoService {
+export class CourseService {
 
-	private todoListUrl: string = 'http://private-4b671-exampleservice.apiary-mock.com/api/todos';
+	private todoListUrl: string = 'assets/mock-data/courses.json';
 
 	constructor(private http: Http) {
 	}
