@@ -2,7 +2,7 @@ import { Component, ViewEncapsulation, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { CourseService } from '../../core/services';
-import { TodoItem } from '../../core/entities';
+import { Course } from '../../core/entities';
 
 @Component({
 	selector: 'courses-list',
@@ -13,21 +13,21 @@ import { TodoItem } from '../../core/entities';
 })
 export class CoursesListComponent implements OnInit, OnDestroy {
 	private courseServiceSubscription: Subscription;
-	private todoList: TodoItem[];
+	private courseList: Course[];
 	private isLoading: boolean = false;
 
 	constructor(private courseService: CourseService) {
 		console.log('Courses page constructor');
 
-		this.todoList = [];
+		this.courseList = [];
 	}
 
 	public ngOnInit() {
 		console.log('Courses page init');
 
 		this.isLoading = true;
-		this.courseServiceSubscription = this.courseService.getTodoItems().subscribe((res: TodoItem[]) => {
-			this.todoList = res;
+		this.courseServiceSubscription = this.courseService.getTodoItems().subscribe((res: Course[]) => {
+			this.courseList = res;
 			this.isLoading = false;
 		});
 	}

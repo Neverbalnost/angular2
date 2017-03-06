@@ -1,6 +1,6 @@
 <div class="home-page">
 	<div class="todo-list">
-		<todo-item *ngFor="let todo of todoList; let i = index" [todo]="todo"></todo-item>
+		<course *ngFor="let course of courseList; let i = index" [course]="course"></course>
 	</div>
 	<div *ngIf="isLoading">Is loading...</div>
 </div>

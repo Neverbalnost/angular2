@@ -8,12 +8,12 @@ import { routes } from './coursesList.routes';
 
 // custom components
 import { CoursesListComponent } from './coursesList.component';
-import { TodoItemComponent } from './todo-item/todo-item.component';
+import { CourseComponent } from './course/course.component';
 
 @NgModule({
 	declarations: [
 		CoursesListComponent,
-		TodoItemComponent
+		CourseComponent
 	],
 	imports: [
 		routes,
