@@ -1,5 +1,5 @@
 <div class="search">
-  <input type="text" placeholder="Name fragment or date">
+  <input [ngModel]="searchString" (ngModelChange)="onStringChange($event)" type="text" placeholder="Name fragment or date">
   <button>Find</button>
 
   <button class="add-course">Add Course</button>

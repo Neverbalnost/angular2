@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
 	selector: 'search',
@@ -8,6 +8,15 @@ import { Component, ViewEncapsulation } from '@angular/core';
 	encapsulation: ViewEncapsulation.None
 })
 export class SearchComponent {
+
+	@Input() searchString:string;
+	@Output() searchStringChange = new EventEmitter<string>();
+	onStringChange(model: string){
+		
+		this.searchString = model;
+		this.searchStringChange.emit(model);
+	}
+
 	constructor() {
 
 	}

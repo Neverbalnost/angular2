@@ -1,9 +1,12 @@
 @import "../../../styles/variables/colors.scss";
 
+.wrapper {
+	background-color: $c-tuna;
+}
+
 .main-navbar {
 	align-items: center;
-	background-color: $grey;
-	color: $black;
+	color: $grey;
 	display: flex;
 	justify-content: space-between;
     padding: 20px 10px;

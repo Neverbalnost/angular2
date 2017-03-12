@@ -1,8 +1,16 @@
 html, body{
+  background: url(../assets/img/bg.jpg);
+  font-family: Arial, Helvetica, sans-serif;
   height: 100%;
-  font-family: Arial, Helvetica, sans-serif
 }
 
 a.active {
   background-color: gray;
+}
+
+
+.white-bg {
+	background: white;
+	height: calc(100% - 140px);
+	padding: 10px 40px;
 }

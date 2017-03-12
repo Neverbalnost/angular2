@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, Input } from '@angular/core';
+import { Component, ViewEncapsulation, Input, Output, EventEmitter } from '@angular/core';
 import { Course } from '../../../core/entities';
 import { todoStatusClasses } from '../../../core/enums';
 

@@ -3,4 +3,5 @@ export interface Course {
 	description: string;
 	startDate: Date;
 	id: Date;
+	duration: string;
 }
