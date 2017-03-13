@@ -27,10 +27,6 @@ export class AppComponent implements OnInit {
 	constructor() {
 	}
 
-    onNameChange($event){
-       console.log($event);
-    }
-
 	public ngOnInit() {
 	}
 

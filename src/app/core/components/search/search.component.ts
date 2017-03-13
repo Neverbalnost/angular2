@@ -1,4 +1,6 @@
 import { Component, ViewEncapsulation, Input, Output, EventEmitter } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
 
 @Component({
 	selector: 'search',
@@ -9,15 +11,12 @@ import { Component, ViewEncapsulation, Input, Output, EventEmitter } from '@angu
 })
 export class SearchComponent {
 
-	@Input() searchString:string;
-	@Output() searchStringChange = new EventEmitter<string>();
-	onStringChange(model: string){
-		
+	@Input() public searchString: string;
+
+	@Output() public searchStringChange = new EventEmitter<string>();
+
+	public onStringChange(model: string) {
 		this.searchString = model;
 		this.searchStringChange.emit(model);
-	}
-
-	constructor() {
-
 	}
 }
