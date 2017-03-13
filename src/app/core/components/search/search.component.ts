@@ -1,6 +1,4 @@
 import { Component, ViewEncapsulation, Input, Output, EventEmitter } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
 
 @Component({
 	selector: 'search',
@@ -13,10 +11,11 @@ export class SearchComponent {
 
 	@Input() public searchString: string;
 
-	@Output() public searchStringChange = new EventEmitter<string>();
-
 	public onStringChange(model: string) {
 		this.searchString = model;
-		this.searchStringChange.emit(model);
+	}
+
+	public clickFind(model: string) {
+		console.log(`You've tried seaching for "${this.searchString}", but unfortunately seach doesn't work yet.`);
 	}
 }
