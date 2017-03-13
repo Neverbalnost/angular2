@@ -12,6 +12,13 @@ import { todoStatusClasses } from '../../../core/enums';
 export class CourseComponent {
 	@Input() public course: Course;
 
+	@Output() public deleteCourse = new EventEmitter<number>();
+
+	deleteClick(id: number) {
+		console.log('Delete clicked!' + id);
+		this.deleteCourse.emit(id);
+	}
+
 	constructor() {
 	}
 }
