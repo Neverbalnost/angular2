@@ -2,10 +2,11 @@
 
 .main-footer {
 	background-color: $grey;
-	color: $black;
-	position: fixed;
 	bottom: 0;
+	color: $black;
 	left: 0;
+	padding: 20px;
+	position: fixed;
 	right: 0;
-	height: 50px;
+	text-align: center;
 }

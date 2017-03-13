@@ -23,7 +23,8 @@ export class CoursesListComponent implements OnInit, OnDestroy {
 	}
 
 	public deleteCourse(id) {
-		console.log('Delete emitted!' + id);
+		console.log(`We are about to delete course with id: ${id}. 
+What a relief, you cannot delete it for real!`);
 	}
 
 	public ngOnInit() {

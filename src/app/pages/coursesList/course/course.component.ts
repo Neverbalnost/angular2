@@ -15,7 +15,6 @@ export class CourseComponent {
 	@Output() public deleteCourse = new EventEmitter<number>();
 
 	deleteClick(id: number) {
-		console.log('Delete clicked!' + id);
 		this.deleteCourse.emit(id);
 	}
 
