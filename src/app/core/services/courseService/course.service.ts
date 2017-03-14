@@ -14,7 +14,7 @@ export class CourseService {
 	constructor(private http: Http) {
 	}
 
-	public getTodoItems (): Observable<Course[]> {
+	public getCourses (): Observable<Course[]> {
 		return this.http.get(this.todoListUrl)
 			.map((response: Response) => response.json())
 			.map((courseList: Course[]) => {
