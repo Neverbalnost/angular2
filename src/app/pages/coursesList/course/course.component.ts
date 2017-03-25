@@ -14,10 +14,9 @@ export class CourseComponent {
 
 	@Output() public deleteCourse = new EventEmitter<number>();
 
-	deleteClick(id: number) {
-		this.deleteCourse.emit(id);
-	}
-
 	constructor() {
+	}
+	public deleteClick(id: number) {
+		this.deleteCourse.emit(id);
 	}
 }

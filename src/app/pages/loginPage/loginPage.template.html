@@ -1,0 +1,16 @@
+<div class="login-page">
+	<div class="login-field">
+		<label>Your Heroic Name</label>
+		<input [(ngModel)]="username" type="text">
+	</div>
+	<div class="login-field">
+		<label>Your Super Secret Password</label>
+		<input [(ngModel)]="password" type="password">
+	</div>
+	<div class="login-field">
+		<button (click)="login(username, password)">
+			Go!
+		</button>
+	</div>
+	<div *ngIf="isLoading">Is loading...</div>
+</div>

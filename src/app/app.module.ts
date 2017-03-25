@@ -28,6 +28,7 @@ import { HeaderModule, SearchModule, FooterModule } from './core/components';
 
 // Pages
 import { CoursesListModule } from './pages/coursesList';
+import { LoginPageModule } from './pages/loginPage';
 
 // Services
 
@@ -55,7 +56,8 @@ const APP_PROVIDERS = [
 		HeaderModule,
 		SearchModule,
 		FooterModule,
-		CoursesListModule
+		CoursesListModule,
+		LoginPageModule
 	],
 	providers: [ // expose our Services and Providers into Angular's dependency injection
 		ENV_PROVIDERS,

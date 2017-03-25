@@ -1,7 +1,7 @@
 <main-header></main-header>
 
 <main class="container white-bg">
-	<search></search>
+	<search [hidden]="!isLoggedIn"></search>
 	<router-outlet></router-outlet>
 </main>
 

@@ -23,8 +23,14 @@ export class CoursesListComponent implements OnInit, OnDestroy {
 	}
 
 	public deleteCourse(id) {
-		console.log(`We are about to delete course with id: ${id}. 
-What a relief, you cannot delete it for real!`);
+		const deleteForReals = confirm('Do you wanna delete this course? For reals?!');
+
+		if (deleteForReals) {
+			this.courseList = this.courseList.filter((course) => {
+				if (course.id !== id) { return true; }
+				return false;
+			});
+		}
 	}
 
 	public ngOnInit() {

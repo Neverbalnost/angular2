@@ -1,0 +1,23 @@
+@import "../../styles/variables/colors.scss";
+
+.login-page {
+	margin-top: 2em;
+	text-align: center;
+
+	.login-field {
+		padding: 15px;
+
+		label,
+		input {
+			display: block;
+		}
+
+		label {
+			color: $c-tuna;
+		}
+
+		input {
+			margin: 0 auto;
+		}
+	}
+}

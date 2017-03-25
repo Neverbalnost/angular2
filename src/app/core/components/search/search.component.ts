@@ -12,6 +12,7 @@ export class SearchComponent {
 	@Input() public searchString: string;
 
 	public clickFind(model: string) {
-		console.log(`You've tried seaching for "${this.searchString}", but unfortunately seach doesn't work yet.`);
+		console.log(`You've tried seaching for 
+"${this.searchString}", but unfortunately seach doesn't work yet.`);
 	}
 }

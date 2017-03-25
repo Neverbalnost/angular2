@@ -7,7 +7,7 @@ import {
 	ViewEncapsulation
 } from '@angular/core';
 import { AppState } from './app.service';
-
+import { AuthService } from './core/services';
 /*
  * App Component
  * Top Level Component
@@ -20,13 +20,15 @@ import { AppState } from './app.service';
 		require('./styles/index.scss'),
 		require('./app.styles.scss')
 	],
+	providers: [AuthService],
 	template: require('./app.template.html')
 })
 export class AppComponent implements OnInit {
-
-	constructor() {
+	private isLoggedIn: boolean;
+	constructor(private authService: AuthService) {
 	}
 
 	public ngOnInit() {
+		this.isLoggedIn = this.authService.IsAuthenticated();
 	}
 }

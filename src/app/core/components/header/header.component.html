@@ -1,7 +1,7 @@
 <nav class="wrapper">
 	<div class="container main-navbar">
 		<logo></logo>
-		<menu></menu>
-		<login></login>
+		<menu [hidden]="!isLoggedIn"></menu>
+		<login [hidden]="!isLoggedIn"></login>
 	</div>
 </nav>

@@ -1,14 +1,18 @@
 import { Component, ViewEncapsulation } from '@angular/core';
+import { AuthService } from '../../../core/services';
 
 @Component({
 	selector: 'main-header',
 	templateUrl: 'header.component.html',
 	styles: [require('./header.component.scss')],
-	providers: [],
+	providers: [AuthService],
 	encapsulation: ViewEncapsulation.None
 })
 export class HeaderComponent {
-	constructor() {
-
+	isLoggedIn: boolean;
+	constructor(private authService: AuthService) {
+	}
+	ngOnChanges() {
+		this.isLoggedIn = this.authService.IsAuthenticated();
 	}
 }
