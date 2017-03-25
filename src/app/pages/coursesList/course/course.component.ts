@@ -1,6 +1,5 @@
 import { Component, ViewEncapsulation, Input, Output, EventEmitter } from '@angular/core';
 import { Course } from '../../../core/entities';
-import { todoStatusClasses } from '../../../core/enums';
 
 @Component({
 	selector: 'course',

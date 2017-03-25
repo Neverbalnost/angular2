@@ -15,6 +15,9 @@ export class CoursesListComponent implements OnInit, OnDestroy {
 	private courseServiceSubscription: Subscription;
 	private courseList: Course[];
 	private isLoading: boolean = false;
+	protected modalHidden: boolean = true;
+	protected modalText: string = `Do you wanna delete this course? For reals?!`;
+	protected currId: number;
 
 	constructor(private courseService: CourseService) {
 		console.log('Courses page constructor');
@@ -22,12 +25,21 @@ export class CoursesListComponent implements OnInit, OnDestroy {
 		this.courseList = [];
 	}
 
-	public deleteCourse(id) {
-		const deleteForReals = confirm('Do you wanna delete this course? For reals?!');
+	private askForReals(id) {
+		//const deleteForReals = confirm('Do you wanna delete this course? For reals?!');
+		this.currId = id;
+		this.modalHidden = false;
 
-		if (deleteForReals) {
-			this.courseList = this.courseService.deleteCourse(id);
+		//if (deleteForReals) {
+		//	this.courseList = this.courseService.deleteCourse(id);
+		//}
+	}
+
+	private closeModal(data) {
+		if (data.answer) {
+			this.courseList = this.courseService.deleteCourse(data.id);
 		}
+		this.modalHidden = true;
 	}
 
 	public ngOnInit() {
