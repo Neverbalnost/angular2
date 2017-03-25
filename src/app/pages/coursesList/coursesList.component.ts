@@ -26,10 +26,7 @@ export class CoursesListComponent implements OnInit, OnDestroy {
 		const deleteForReals = confirm('Do you wanna delete this course? For reals?!');
 
 		if (deleteForReals) {
-			this.courseList = this.courseList.filter((course) => {
-				if (course.id !== id) { return true; }
-				return false;
-			});
+			this.courseList = this.courseService.deleteCourse(id);
 		}
 	}
 

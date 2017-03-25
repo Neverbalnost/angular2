@@ -12,7 +12,7 @@ export class HeaderComponent {
 	isLoggedIn: boolean;
 	constructor(private authService: AuthService) {
 	}
-	ngOnChanges() {
+	ngOnInit() {
 		this.isLoggedIn = this.authService.IsAuthenticated();
 	}
 }

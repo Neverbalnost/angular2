@@ -9,18 +9,40 @@ import { Course } from '../../entities';
 @Injectable()
 export class CourseService {
 
-	private todoListUrl: string = 'assets/mock-data/courses.json';
+	private courseListUrl: string = 'assets/mock-data/courses.json';
+	private courseList;
 
 	constructor(private http: Http) {
 	}
 
 	public getCourses (): Observable<Course[]> {
-		return this.http.get(this.todoListUrl)
+		return this.http.get(this.courseListUrl)
 			.map((response: Response) => response.json())
 			.map((courseList: Course[]) => {
-				// change return value structure here if you want
-				return courseList;
+				this.courseList = courseList;
+				return this.courseList;
 			});
+	}
+
+	public createCourse() {
+		
+	}
+
+	public getCourseById() {
+
+	}
+
+	public updateCourse() {
+
+	}
+
+	public deleteCourse(id) {
+		this.courseList = this.courseList.filter((course) => {
+			if (course.id !== id) { return true; }
+			return false;
+		});
+
+		return this.courseList;
 	}
 
 	private extractData(res: Response) {
