@@ -37,7 +37,7 @@ export class CoursesListComponent implements OnInit, OnDestroy {
 		console.log('Courses page init');
 
 		this.isLoading = true;
-		this.courseServiceSubscription = this.courseService.getTodoItems().subscribe((res: Course[]) => {
+		this.courseServiceSubscription = this.courseService.getCourses().subscribe((res: Course[]) => {
 			this.courseList = res;
 			this.isLoading = false;
 		});
