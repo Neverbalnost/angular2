@@ -1,8 +1,19 @@
-<h2>Task 1: Intro</h2>
+<h2>Task 1: Intro</h2> Check!
+<h2>Task 2: Components</h2> Check!
+<h2>Task 3: Modules. Services.</h2> Ready for review
 <ul>
-	<li>Created repository +</li>
-	<li>Added base project structure (any starter kit or simple app from scratch) +</li>
-	<li>Has dev and prod configurations for webpack and can be run on localhost</li>
-	<li>Added fake implementations for components with some issues +</li>
-	<li>Done all above including interfaces without major issues</li>	
+	<li>Implemented authorization service, including 
+		<ol>
+			<li>Login</li>
+			<li>Logout</li>
+			<li>Get used data</li>
+			<li>Get authentification status</li>
+		</ol>
+	</li>
+	<li>Implemented new methods for course service
+		<ol>
+			<li>Delete course (with fancy popup!)</li>
+			<li>Add course (fake for now)</li>
+		</ol>
+	</li>
 </ul>
