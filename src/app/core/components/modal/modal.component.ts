@@ -10,12 +10,12 @@ import { Component, ViewEncapsulation, Input, Output, EventEmitter } from '@angu
 export class ModalComponent {
 	@Input() modalHidden;
 	@Input() modalText;
-	@Input() currId;
+	@Input() modalTitle;
 
-	@Output() public deleteCourse = new EventEmitter();
+	@Output() public userConfirm = new EventEmitter();
 
-	public userAnswer(answer: boolean, id: number) {
-		this.deleteCourse.emit({answer: answer, id: id});
+	public userAnswer(answer: boolean) {
+		this.userConfirm.emit(answer);
 	}
 
 	constructor() {

@@ -9,19 +9,19 @@ import { routes } from './coursesList.routes';
 // custom components
 import { CoursesListComponent } from './coursesList.component';
 import { CourseComponent } from './course/course.component';
-import { ModalComponent } from './../../core/components/modal/modal.component';
+import { ModalModule } from './../../core/components/modal/modal.module';
 
 @NgModule({
 	declarations: [
 		CoursesListComponent,
-		CourseComponent,
-		ModalComponent
+		CourseComponent
 	],
 	imports: [
 		routes,
 		FormsModule,
 		ReactiveFormsModule,
-		CommonModule
+		CommonModule,
+		ModalModule
 	],
 	providers: []
 })

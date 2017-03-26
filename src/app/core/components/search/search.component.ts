@@ -9,6 +9,10 @@ import { CourseService } from '../../../core/services';
 	encapsulation: ViewEncapsulation.None
 })
 export class SearchComponent {
+	protected modalHidden: boolean = true;
+
+	protected modalTitle: string = 'Starting a new course, huh?'
+
 	@Input() public searchString: string;
 
 	constructor(private courseService: CourseService) {
@@ -17,6 +21,14 @@ export class SearchComponent {
 	private clickFind(model: string) {
 		console.log(`You've tried seaching for 
 "${this.searchString}", but unfortunately seach doesn't work yet.`);
+	}
+
+	openModal() {
+		this.modalHidden = false;
+	}
+
+	private closeModal(data) {
+		this.modalHidden = true;
 	}
 
 	private addCourse() {
