@@ -25,7 +25,8 @@ export class CourseService {
 	}
 
 	public createCourse() {
-		this.courseList.prepend({
+		console.log(this.courseList);
+		this.courseList.push({
 			title: 'Course',
 			description: 'Descpiption',
 			startDate: new Date(),

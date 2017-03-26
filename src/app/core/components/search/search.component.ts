@@ -1,4 +1,5 @@
 import { Component, ViewEncapsulation, Input, Output, EventEmitter } from '@angular/core';
+import { CourseService } from '../../../core/services';
 
 @Component({
 	selector: 'search',
@@ -8,11 +9,17 @@ import { Component, ViewEncapsulation, Input, Output, EventEmitter } from '@angu
 	encapsulation: ViewEncapsulation.None
 })
 export class SearchComponent {
-
 	@Input() public searchString: string;
 
-	public clickFind(model: string) {
+	constructor(private courseService: CourseService) {
+	}
+
+	private clickFind(model: string) {
 		console.log(`You've tried seaching for 
 "${this.searchString}", but unfortunately seach doesn't work yet.`);
+	}
+
+	private addCourse() {
+		this.courseService.createCourse();
 	}
 }
