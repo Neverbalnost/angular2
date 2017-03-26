@@ -26,13 +26,8 @@ export class CoursesListComponent implements OnInit, OnDestroy {
 	}
 
 	private askForReals(id) {
-		//const deleteForReals = confirm('Do you wanna delete this course? For reals?!');
 		this.currId = id;
 		this.modalHidden = false;
-
-		//if (deleteForReals) {
-		//	this.courseList = this.courseService.deleteCourse(id);
-		//}
 	}
 
 	private closeModal(data) {

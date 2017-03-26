@@ -5,14 +5,18 @@ import { AuthService } from '../../../core/services';
 	selector: 'main-header',
 	templateUrl: 'header.component.html',
 	styles: [require('./header.component.scss')],
-	providers: [AuthService],
+	providers: [],
 	encapsulation: ViewEncapsulation.None
 })
 export class HeaderComponent {
-	isLoggedIn: boolean;
+	isLoggedIn: boolean = false;
 	constructor(private authService: AuthService) {
 	}
 	ngOnInit() {
-		this.isLoggedIn = this.authService.IsAuthenticated();
+		this.authService.authStateChange.subscribe(
+			(isLogged) => {
+				this.isLoggedIn = this.authService.IsAuthenticated();
+			}
+		);
 	}
 }

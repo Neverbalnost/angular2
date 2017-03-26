@@ -1,18 +1,33 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { AuthService } from '../../../../core/services';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'login',
 	templateUrl: 'login.component.html',
-	providers: [AuthService],
+	providers: [],
 	encapsulation: ViewEncapsulation.None
 })
 export class LoginComponent {
 	username: string;
-	constructor(private authService: AuthService) {
-
+	constructor(private authService: AuthService, private router: Router) {
 	}
+
+	private logout() {
+		this.authService.Logout();
+	}
+
 	ngOnInit() {
-		this.username = this.authService.GetUserInfo();
+		this.authService.authStateChange.subscribe(
+			(isLogged) => {
+
+				if (this.authService.IsAuthenticated()) {
+					this.username = this.authService.GetUserInfo()
+				} else {
+					console.log('Bye!')
+					this.router.navigate(['login']);
+				}
+			}
+		);
 	}
 }

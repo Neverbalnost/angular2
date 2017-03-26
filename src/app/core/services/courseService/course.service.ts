@@ -25,7 +25,13 @@ export class CourseService {
 	}
 
 	public createCourse() {
-		
+		this.courseList.prepend({
+			title: 'Course',
+			description: 'Descpiption',
+			startDate: new Date(),
+			id: Math.floor(Math.random() * 10),
+			duration: '3 hours'
+		})
 	}
 
 	public getCourseById() {
