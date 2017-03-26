@@ -29,7 +29,7 @@ export class AppComponent implements OnInit {
 	}
 
 	public ngOnInit() {
-
+		this.isLoggedIn = this.authService.IsAuthenticated();
 		this.authService.authStateChange.subscribe(
 			(isLogged) => {
 				this.isLoggedIn = this.authService.IsAuthenticated();

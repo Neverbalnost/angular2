@@ -28,6 +28,6 @@ export class AuthService {
 	}
 
 	public IsAuthenticated() {
-		return this.userLoggedIn;
+		return localStorage.getItem('currUser') !== null;
 	}
 }
