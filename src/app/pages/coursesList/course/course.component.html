@@ -14,7 +14,7 @@
 		{{course.description}}
 	</div>
 	<div class="course-buttons">
-		<button>Edit</button>
+		<button (click)="updateClick(course.id)">Edit</button>
 		<button (click)="deleteClick(course.id)">Delete</button>
 	</div>
 </div>

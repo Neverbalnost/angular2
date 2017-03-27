@@ -31,6 +31,11 @@ export class CoursesListComponent implements OnInit, OnDestroy {
 		this.modalHidden = false;
 	}
 
+	private sendNewCourseData(courseData) {
+		console.log(courseData);
+		this.courseService.updateCourse(courseData.id, courseData.data);
+	}
+
 	private closeModal(data) {
 		if (data) {
 			this.courseList = this.courseService.deleteCourse(this.currId);

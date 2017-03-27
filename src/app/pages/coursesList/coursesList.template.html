@@ -1,6 +1,6 @@
 <div class="home-page">
 	<div class="course-list">
-		<course (deleteCourse)="askForReals($event)" *ngFor="let course of courseList; let i = index" [course]="course"></course>
+		<course (updateCourse)="sendNewCourseData($event)" (deleteCourse)="askForReals($event)" *ngFor="let course of courseList; let i = index" [course]="course"></course>
 	</div>
 	<div *ngIf="isLoading">Is loading...</div>
 </div>

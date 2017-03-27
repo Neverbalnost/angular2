@@ -28,19 +28,31 @@ export class CourseService {
 		console.log(this.courseList);
 		this.courseList.push({
 			title: 'Course',
-			description: 'Descpiption',
+			description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
 			startDate: new Date(),
-			id: Math.floor(Math.random() * 10),
+			id: this.getLastId() + 1,
 			duration: '3 hours'
 		})
 	}
 
-	public getCourseById() {
-
+	public getCourseById(id) {
+		return this.courseList.find(function(course) {
+			return course.id == id;
+		})
 	}
 
-	public updateCourse() {
+	public getLastId() {
+		return this.courseList[this.courseList.length - 1].id;
+	}
 
+	public updateCourse(id, data) {
+		const coursetoChange = this.getCourseById(id);
+
+		if (data.title) coursetoChange.title = data.title;
+		if (data.id) coursetoChange.id = data.id;
+		if (data.description) coursetoChange.description = data.description;
+		if (data.startDate) coursetoChange.startDate = data.startDate;
+		if (data.duration) coursetoChange.duration = data.duration;
 	}
 
 	public deleteCourse(id) {
