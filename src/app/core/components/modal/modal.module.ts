@@ -1,4 +1,5 @@
 ﻿import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { ModalComponent } from './modal.component';
 
 @NgModule({
@@ -6,7 +7,7 @@ import { ModalComponent } from './modal.component';
 	imports: [],
 	exports: [ModalComponent]
 })
-export class FooterModule {
+export class ModalModule {
 	constructor() {
 	}
 }

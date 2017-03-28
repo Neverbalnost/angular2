@@ -23,7 +23,6 @@ export class LoginComponent {
 		}
 		this.authService.authStateChange.subscribe(
 			(isLogged) => {
-
 				if (this.authService.IsAuthenticated()) {
 					this.username = this.authService.GetUserInfo();
 				} else {

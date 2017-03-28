@@ -17,6 +17,7 @@ export class CoursesListComponent implements OnInit, OnDestroy {
 	private isLoading: boolean = false;
 	protected modalHidden: boolean = true;
 	protected modalText: string = `Do you wanna delete this course? For reals?!`;
+	protected modalTitle: string = `Delete this course?`;
 	protected currId: number;
 
 	constructor(private courseService: CourseService) {
@@ -30,9 +31,14 @@ export class CoursesListComponent implements OnInit, OnDestroy {
 		this.modalHidden = false;
 	}
 
+	private sendNewCourseData(courseData) {
+		console.log(courseData);
+		this.courseService.updateCourse(courseData.id, courseData.data);
+	}
+
 	private closeModal(data) {
-		if (data.answer) {
-			this.courseList = this.courseService.deleteCourse(data.id);
+		if (data) {
+			this.courseList = this.courseService.deleteCourse(this.currId);
 		}
 		this.modalHidden = true;
 	}
