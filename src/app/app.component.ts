@@ -8,6 +8,8 @@ import {
 } from '@angular/core';
 import { AppState } from './app.service';
 import { AuthService } from './core/services';
+import { Subscription } from 'rxjs';
+
 /*
  * App Component
  * Top Level Component
@@ -24,16 +26,15 @@ import { AuthService } from './core/services';
 	template: require('./app.template.html')
 })
 export class AppComponent implements OnInit {
-	private isLoggedIn: boolean;
+	private isLoggedIn: boolean = false;
+	private authServiceSubscription: Subscription;
 	constructor(private authService: AuthService) {
 	}
 
 	public ngOnInit() {
-		this.isLoggedIn = this.authService.IsAuthenticated();
-		this.authService.authStateChange.subscribe(
-			(isLogged) => {
-				this.isLoggedIn = this.authService.IsAuthenticated();
-			}
-		);
+		this.authServiceSubscription = this.authService.IsAuthenticated.subscribe(
+			(isLogged: boolean) => {
+				this.isLoggedIn = isLogged;
+		});
 	}
 }

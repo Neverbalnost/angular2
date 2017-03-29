@@ -1,6 +1,7 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { AuthService } from '../../../../core/services';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
 	selector: 'login',
@@ -9,27 +10,33 @@ import { Router } from '@angular/router';
 	encapsulation: ViewEncapsulation.None
 })
 export class LoginComponent {
-	username: string;
+	private username: string = 'Stranger';
 	constructor(private authService: AuthService, private router: Router) {
 	}
-
+	private authServiceSubscription: Subscription;
 	private logout() {
 		this.authService.Logout();
 	}
 
 	ngOnInit() {
-		if (this.authService.IsAuthenticated()) {
-			this.username = this.authService.GetUserInfo();
-		}
-		this.authService.authStateChange.subscribe(
-			(isLogged) => {
-				if (this.authService.IsAuthenticated()) {
+		this.authServiceSubscription = this.authService.IsAuthenticated.subscribe(
+			(isLogged: boolean) => {
+				if (isLogged) {
 					this.username = this.authService.GetUserInfo();
 				} else {
-					console.log('Bye!')
 					this.router.navigate(['login']);
 				}
-			}
-		);
+		});
+
+		// this.authService.authStateChange.subscribe(
+		// 	(isLogged) => {
+		// 		if (this.authService.IsAuthenticated()) {
+		// 			this.username = this.authService.GetUserInfo();
+		// 		} else {
+		// 			console.log('Bye!')
+		// 			this.router.navigate(['login']);
+		// 		}
+		// 	}
+		// );
 	}
 }
