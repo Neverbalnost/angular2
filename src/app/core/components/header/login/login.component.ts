@@ -27,16 +27,5 @@ export class LoginComponent {
 					this.router.navigate(['login']);
 				}
 		});
-
-		// this.authService.authStateChange.subscribe(
-		// 	(isLogged) => {
-		// 		if (this.authService.IsAuthenticated()) {
-		// 			this.username = this.authService.GetUserInfo();
-		// 		} else {
-		// 			console.log('Bye!')
-		// 			this.router.navigate(['login']);
-		// 		}
-		// 	}
-		// );
 	}
 }
