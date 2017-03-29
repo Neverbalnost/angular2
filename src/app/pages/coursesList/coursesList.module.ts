@@ -10,6 +10,7 @@ import { routes } from './coursesList.routes';
 import { CoursesListComponent } from './coursesList.component';
 import { CourseComponent } from './course/course.component';
 import { ModalModule } from './../../core/components/modal/modal.module';
+import { LoaderModule } from './../../core/components/loader/loader.module';
 
 @NgModule({
 	declarations: [
@@ -21,7 +22,8 @@ import { ModalModule } from './../../core/components/modal/modal.module';
 		FormsModule,
 		ReactiveFormsModule,
 		CommonModule,
-		ModalModule
+		ModalModule,
+		LoaderModule
 	],
 	providers: []
 })

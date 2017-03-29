@@ -7,6 +7,7 @@ import {
 	ViewEncapsulation
 } from '@angular/core';
 import { AppState } from './app.service';
+import { LoaderService } from './core/services';
 import { AuthService } from './core/services';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
@@ -23,7 +24,7 @@ import { Router } from '@angular/router';
 		require('./styles/index.scss'),
 		require('./app.styles.scss')
 	],
-	providers: [AuthService],
+	providers: [AuthService, LoaderService],
 	template: require('./app.template.html')
 })
 export class AppComponent implements OnInit {

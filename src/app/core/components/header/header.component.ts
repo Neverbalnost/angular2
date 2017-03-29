@@ -20,10 +20,5 @@ export class HeaderComponent {
 			(isLogged: boolean) => {
 				this.isLoggedIn = isLogged;
 		});
-		// this.authService.authStateChange.subscribe(
-		// 	(isLogged) => {
-		// 		this.isLoggedIn = this.authService.IsAuthenticated();
-		// 	}
-		// );
 	}
 }

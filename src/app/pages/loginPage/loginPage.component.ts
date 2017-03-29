@@ -27,12 +27,6 @@ export class LoginPageComponent implements OnInit, OnDestroy {
 					this.router.navigate(['courses']);
 				}
 		});
-		// this.authService.authStateChange.subscribe(
-		// 	(isLogged) => {
-		// 		console.log('Got it!')
-		// 		this.router.navigate(['courses']);
-		// 	}
-		// );
 	}
 
 	public ngOnDestroy() {
