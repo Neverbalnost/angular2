@@ -9,6 +9,7 @@ import {
 import { AppState } from './app.service';
 import { AuthService } from './core/services';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 /*
  * App Component
@@ -28,7 +29,7 @@ import { Subscription } from 'rxjs';
 export class AppComponent implements OnInit {
 	private isLoggedIn: boolean = false;
 	private authServiceSubscription: Subscription;
-	constructor(private authService: AuthService) {
+	constructor(private authService: AuthService, private router: Router) {
 	}
 
 	public ngOnInit() {
@@ -36,5 +37,8 @@ export class AppComponent implements OnInit {
 			(isLogged: boolean) => {
 				this.isLoggedIn = isLogged;
 		});
+		if (!this.isLoggedIn) {
+			this.router.navigate(['login']);
+		}
 	}
 }
