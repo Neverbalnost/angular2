@@ -15,11 +15,9 @@ export class LoaderComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		console.log('Loader component is initialized')
 		this.loaderServiceSubscription = this.loaderService.IsLoading.subscribe(
 			(isLoading: boolean) => {
 				this.isLoading = isLoading;
-				console.log('isLoading is now ', isLoading)
 		});
 	}
 }

@@ -46,13 +46,11 @@ export class CoursesListComponent implements OnInit, OnDestroy {
 
 	public ngOnInit() {
 		console.log('Courses page init');
-		// this.loaderService.changeState(true);
-		this.isLoading = true;
+		this.loaderService.changeState(true);
 
 		this.courseServiceSubscription = this.courseService.getCourses().subscribe((res: Course[]) => {
 			this.courseList = res;
-			// this.loaderService.changeState(false);
-			this.isLoading = false;
+			this.loaderService.changeState(false);
 		});
 	}
 
