@@ -2,6 +2,7 @@ import { Component, ViewEncapsulation, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { CourseService } from '../../core/services';
+import { LoaderService } from '../../core/services';
 import { Course } from '../../core/entities';
 
 @Component({
@@ -20,7 +21,7 @@ export class CoursesListComponent implements OnInit, OnDestroy {
 	protected modalTitle: string = `Delete this course?`;
 	protected currId: number;
 
-	constructor(private courseService: CourseService) {
+	constructor(private courseService: CourseService, private loaderService: LoaderService) {
 		console.log('Courses page constructor');
 
 		this.courseList = [];
@@ -37,19 +38,22 @@ export class CoursesListComponent implements OnInit, OnDestroy {
 	}
 
 	private closeModal(data) {
+		let self = this;
 		if (data) {
 			this.courseList = this.courseService.deleteCourse(this.currId);
 		}
 		this.modalHidden = true;
+		this.loaderService.Show();
+		setTimeout(function(){self.loaderService.Hide()}, 200);
 	}
 
 	public ngOnInit() {
-		console.log('Courses page init');
+		let self = this;
+		this.loaderService.Show();
 
-		this.isLoading = true;
 		this.courseServiceSubscription = this.courseService.getCourses().subscribe((res: Course[]) => {
 			this.courseList = res;
-			this.isLoading = false;
+			setTimeout(function(){self.loaderService.Hide()}, 200);
 		});
 	}
 

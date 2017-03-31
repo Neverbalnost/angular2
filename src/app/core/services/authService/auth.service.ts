@@ -1,11 +1,29 @@
 import { Injectable, EventEmitter } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { Observer } from 'rxjs/Observer';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import 'rxjs/add/operator/share';
 
 @Injectable()
 
 export class AuthService {
 	private userLoggedIn: boolean = false;
+	public IsAuthenticated: Observable<boolean>;
+	private _observer: Observer<any>;
+	private UserInfoSource = new BehaviorSubject<string>('User');
+	public userInfo = this.UserInfoSource.asObservable();
+	changeUserInfo(string) {
+		this.UserInfoSource.next(string);
+	}
 
-	authStateChange:EventEmitter<boolean> = new EventEmitter<boolean>();
+	constructor() {
+		this.IsAuthenticated = new Observable(observer =>
+			this._observer = observer).share();
+	}
+
+	private changeState(state) {
+		this._observer.next(state);
+	}
 
 	public Login(name, pass) {
 		let currUser = {
@@ -14,20 +32,16 @@ export class AuthService {
 		}
 		localStorage.setItem('currUser', JSON.stringify(currUser));
 		this.userLoggedIn = true;
-		this.authStateChange.emit(this.userLoggedIn);
+		this.changeState(this.userLoggedIn);
 	}
 
 	public Logout() {
 		localStorage.removeItem('currUser');
 		this.userLoggedIn = false;
-		this.authStateChange.emit(this.userLoggedIn);
+		this.changeState(this.userLoggedIn);
 	}
 
 	public GetUserInfo() {
 		return JSON.parse(localStorage.getItem('currUser')).name;
-	}
-
-	public IsAuthenticated() {
-		return localStorage.getItem('currUser') !== null;
 	}
 }

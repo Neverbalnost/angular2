@@ -1,10 +1,11 @@
-import { Component, ViewEncapsulation, Input, Output, EventEmitter } from '@angular/core';
+import { Component, ViewEncapsulation, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
 	selector: 'modal',
 	templateUrl: './modal.component.html',
 	encapsulation: ViewEncapsulation.None,
 	styles: [require('./modal.component.scss')],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class ModalComponent {

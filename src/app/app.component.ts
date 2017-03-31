@@ -4,10 +4,15 @@
 import {
 	Component,
 	OnInit,
-	ViewEncapsulation
+	ViewEncapsulation,
+	NgZone
 } from '@angular/core';
 import { AppState } from './app.service';
+import { LoaderService } from './core/services';
 import { AuthService } from './core/services';
+import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
+
 /*
  * App Component
  * Top Level Component
@@ -20,20 +25,24 @@ import { AuthService } from './core/services';
 		require('./styles/index.scss'),
 		require('./app.styles.scss')
 	],
-	providers: [AuthService],
+	providers: [AuthService, LoaderService],
 	template: require('./app.template.html')
 })
 export class AppComponent implements OnInit {
-	private isLoggedIn: boolean;
-	constructor(private authService: AuthService) {
+	private isLoggedIn: boolean = false;
+	private authServiceSubscription: Subscription;
+	constructor(private authService: AuthService, private router: Router, private ngZone: NgZone) {
 	}
 
 	public ngOnInit() {
-		this.isLoggedIn = this.authService.IsAuthenticated();
-		this.authService.authStateChange.subscribe(
-			(isLogged) => {
-				this.isLoggedIn = this.authService.IsAuthenticated();
-			}
-		);
+		this.authServiceSubscription = this.authService.IsAuthenticated.subscribe(
+			(isLogged: boolean) => {
+				this.isLoggedIn = isLogged;
+		});
+		if (!this.isLoggedIn) {
+			this.router.navigate(['login']);
+		}
+		this.ngZone.onUnstable.subscribe((data) => console.log('unstable', data));
+		this.ngZone.onStable.subscribe((data) => console.log('stable', data));
 	}
 }

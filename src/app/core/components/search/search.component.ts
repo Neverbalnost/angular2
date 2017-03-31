@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, Input, Output, EventEmitter } from '@angular/core';
+import { Component, ViewEncapsulation, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { CourseService } from '../../../core/services';
 import {DomSanitizer} from '@angular/platform-browser';
 import { FormBuilder } from '@angular/forms';
@@ -8,7 +8,8 @@ import { FormBuilder } from '@angular/forms';
 	templateUrl: './search.component.html',
 	styles: [require('./search.component.scss')],
 	providers: [],
-	encapsulation: ViewEncapsulation.None
+	encapsulation: ViewEncapsulation.None,
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SearchComponent {
 	protected modalHidden: boolean = true;

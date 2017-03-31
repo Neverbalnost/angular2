@@ -1,5 +1,6 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { AuthService } from '../../../core/services';
+import { Subscription } from 'rxjs';
 
 @Component({
 	selector: 'main-header',
@@ -9,15 +10,15 @@ import { AuthService } from '../../../core/services';
 	encapsulation: ViewEncapsulation.None
 })
 export class HeaderComponent {
-	isLoggedIn: boolean = false;
+	private isLoggedIn: boolean = false;
+	private authServiceSubscription: Subscription;
 	constructor(private authService: AuthService) {
 	}
+
 	ngOnInit() {
-		this.isLoggedIn = this.authService.IsAuthenticated();
-		this.authService.authStateChange.subscribe(
-			(isLogged) => {
-				this.isLoggedIn = this.authService.IsAuthenticated();
-			}
-		);
+		this.authServiceSubscription = this.authService.IsAuthenticated.subscribe(
+			(isLogged: boolean) => {
+				this.isLoggedIn = isLogged;
+		});
 	}
 }
