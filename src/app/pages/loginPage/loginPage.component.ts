@@ -19,8 +19,8 @@ export class LoginPageComponent implements OnInit, OnDestroy {
 
 	private login(name, pass) {
 		let self = this;
-		this.loaderService.changeState(true);
-		setTimeout(function(){self.loaderService.changeState(false)}, 300);
+		this.loaderService.Show();
+		setTimeout(function(){self.loaderService.Hide()}, 300);
 		this.authService.changeUserInfo(name);
 		this.authService.Login(name, pass);
 	}

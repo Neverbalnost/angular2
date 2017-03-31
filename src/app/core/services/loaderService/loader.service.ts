@@ -16,7 +16,15 @@ export class LoaderService {
 		}).share();
 	}
 
-	public changeState(state) {
+	public Show() {
+		this.changeState(true);
+	}
+
+	public Hide() {
+		this.changeState(false);
+	}
+
+	private changeState(state) {
 		this._observer.next(state);
 	}
 }

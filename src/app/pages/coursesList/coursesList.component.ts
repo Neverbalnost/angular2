@@ -43,17 +43,17 @@ export class CoursesListComponent implements OnInit, OnDestroy {
 			this.courseList = this.courseService.deleteCourse(this.currId);
 		}
 		this.modalHidden = true;
-		this.loaderService.changeState(true);
-		setTimeout(function(){self.loaderService.changeState(false)}, 100);
+		this.loaderService.Show();
+		setTimeout(function(){self.loaderService.Hide()}, 200);
 	}
 
 	public ngOnInit() {
 		let self = this;
-		this.loaderService.changeState(true);
+		this.loaderService.Show();
 
 		this.courseServiceSubscription = this.courseService.getCourses().subscribe((res: Course[]) => {
 			this.courseList = res;
-			setTimeout(function(){self.loaderService.changeState(false)}, 100);
+			setTimeout(function(){self.loaderService.Hide()}, 200);
 		});
 	}
 
