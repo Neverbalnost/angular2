@@ -10,7 +10,8 @@ import { Subscription } from 'rxjs';
 	encapsulation: ViewEncapsulation.None
 })
 export class LoginComponent {
-	private username: string = 'Stranger';
+	private subscription: Subscription;
+	private username: string;
 	constructor(private authService: AuthService, private router: Router) {
 	}
 	private authServiceSubscription: Subscription;
@@ -22,7 +23,8 @@ export class LoginComponent {
 		this.authServiceSubscription = this.authService.IsAuthenticated.subscribe(
 			(isLogged: boolean) => {
 				if (isLogged) {
-					this.username = this.authService.GetUserInfo();
+					this.subscription = this.authService.userInfo
+						.subscribe(username => this.username = username)
 				} else {
 					this.router.navigate(['login']);
 				}

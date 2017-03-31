@@ -18,21 +18,20 @@ export class LoginPageComponent implements OnInit, OnDestroy {
 	}
 
 	private login(name, pass) {
+		let self = this;
+		this.loaderService.changeState(true);
+		setTimeout(function(){self.loaderService.changeState(false)}, 300);
+		this.authService.changeUserInfo(name);
 		this.authService.Login(name, pass);
 	}
 
 	public ngOnInit() {
-		this.loaderService.changeState(true);
 		this.authServiceSubscription = this.authService.IsAuthenticated.subscribe(
 			(isLogged: boolean) => {
 				if (isLogged) {
 					this.router.navigate(['courses']);
 				}
 		});
-	}
-
-	ngAfterViewInit() {
-		this.loaderService.changeState(false);
 	}
 
 	public ngOnDestroy() {

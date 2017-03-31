@@ -1,14 +1,20 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import 'rxjs/add/operator/share';
 
 @Injectable()
 
 export class AuthService {
 	private userLoggedIn: boolean = false;
-	IsAuthenticated: Observable<boolean>;
+	public IsAuthenticated: Observable<boolean>;
 	private _observer: Observer<any>;
+	private UserInfoSource = new BehaviorSubject<string>('User');
+	public userInfo = this.UserInfoSource.asObservable();
+	changeUserInfo(string) {
+		this.UserInfoSource.next(string);
+	}
 
 	constructor() {
 		this.IsAuthenticated = new Observable(observer =>
