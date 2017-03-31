@@ -4,7 +4,8 @@
 import {
 	Component,
 	OnInit,
-	ViewEncapsulation
+	ViewEncapsulation,
+	NgZone
 } from '@angular/core';
 import { AppState } from './app.service';
 import { LoaderService } from './core/services';
@@ -30,7 +31,7 @@ import { Router } from '@angular/router';
 export class AppComponent implements OnInit {
 	private isLoggedIn: boolean = false;
 	private authServiceSubscription: Subscription;
-	constructor(private authService: AuthService, private router: Router) {
+	constructor(private authService: AuthService, private router: Router, private ngZone: NgZone) {
 	}
 
 	public ngOnInit() {
@@ -41,5 +42,7 @@ export class AppComponent implements OnInit {
 		if (!this.isLoggedIn) {
 			this.router.navigate(['login']);
 		}
+		this.ngZone.onUnstable.subscribe((data) => console.log('unstable', data));
+		this.ngZone.onStable.subscribe((data) => console.log('stable', data));
 	}
 }
