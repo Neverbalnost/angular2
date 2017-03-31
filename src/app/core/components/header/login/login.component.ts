@@ -22,12 +22,9 @@ export class LoginComponent {
 	ngOnInit() {
 		this.authServiceSubscription = this.authService.IsAuthenticated.subscribe(
 			(isLogged: boolean) => {
-				if (isLogged) {
-					this.subscription = this.authService.userInfo
-						.subscribe(username => this.username = username)
-				} else {
 					this.router.navigate(['login']);
-				}
 		});
+		this.subscription = this.authService.userInfo
+						.subscribe(username => this.username = username);
 	}
 }
