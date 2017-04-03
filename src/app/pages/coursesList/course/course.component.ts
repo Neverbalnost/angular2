@@ -1,6 +1,7 @@
 import { Component, ViewEncapsulation, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { Course } from '../../../core/entities';
 
+
 @Component({
 	selector: 'course',
 	templateUrl: 'course.component.html',
@@ -15,6 +16,8 @@ export class CourseComponent {
 	@Output() public deleteCourse = new EventEmitter<number>();
 
 	@Output() public updateCourse = new EventEmitter();
+
+	public courseDate: Date;
 
 	constructor() {
 	}

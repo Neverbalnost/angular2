@@ -11,10 +11,14 @@ import { CoursesListComponent } from './coursesList.component';
 import { CourseComponent } from './course/course.component';
 import { ModalModule } from './../../core/components/modal/modal.module';
 
+// directives
+import { NewCourseDirective } from './../../core/directives/newCourse/newCourse.directive';
+
 @NgModule({
 	declarations: [
 		CoursesListComponent,
-		CourseComponent
+		CourseComponent,
+		NewCourseDirective
 	],
 	imports: [
 		routes,
