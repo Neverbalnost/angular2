@@ -10,7 +10,7 @@ import { Course } from '../../entities';
 export class CourseService {
 
 	private courseListUrl: string = 'assets/mock-data/courses.json';
-	private courseList;
+	public courseList;
 
 	constructor(private http: Http) {
 	}

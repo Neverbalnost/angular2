@@ -16,10 +16,10 @@ export class CoursesListComponent implements OnInit, OnDestroy {
 	private courseServiceSubscription: Subscription;
 	private courseList: Course[];
 	private isLoading: boolean = false;
-	protected modalHidden: boolean = true;
-	protected modalText: string = `Do you wanna delete this course? For reals?!`;
-	protected modalTitle: string = `Delete this course?`;
-	protected currId: number;
+	private modalHidden: boolean = true;
+	private modalText: string = `Do you wanna delete this course? For reals?!`;
+	private modalTitle: string = `Delete this course?`;
+	private currId: number;
 
 	constructor(private courseService: CourseService, private loaderService: LoaderService) {
 		console.log('Courses page constructor');
@@ -52,6 +52,7 @@ export class CoursesListComponent implements OnInit, OnDestroy {
 		this.loaderService.Show();
 
 		this.courseServiceSubscription = this.courseService.getCourses().subscribe((res: Course[]) => {
+			console.log('Got data', res);
 			this.courseList = res;
 			setTimeout(function(){self.loaderService.Hide()}, 200);
 		});

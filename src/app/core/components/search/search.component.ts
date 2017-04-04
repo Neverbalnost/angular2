@@ -1,20 +1,21 @@
 import { Component, ViewEncapsulation, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { CourseService } from '../../../core/services';
-import {DomSanitizer} from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser'
 import { FormBuilder } from '@angular/forms';
+import { FilterPipe } from './../../pipes';
 
 @Component({
 	selector: 'search',
 	templateUrl: './search.component.html',
 	styles: [require('./search.component.scss')],
-	providers: [],
+	providers: [FilterPipe],
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SearchComponent {
-	protected modalHidden: boolean = true;
-	protected modalText;
-	protected modalTitle: string = 'Starting a new course, huh?'
+	private modalHidden: boolean = true;
+	private modalText;
+	private modalTitle: string = 'Starting a new course, huh?';
 
 	@Input() public searchString: string;
 
@@ -27,7 +28,7 @@ export class SearchComponent {
 		desc: ['']
 	});
 
-	constructor(private courseService: CourseService, private sanitizer: DomSanitizer, public fb: FormBuilder) {
+	constructor(private courseService: CourseService, private sanitizer: DomSanitizer, public fb: FormBuilder, private filter: FilterPipe) {
 		this.modalText= sanitizer.bypassSecurityTrustHtml(
 			`
 			<form [formGroup]="newCourseForm" (ngSubmit)="sendCourseData($event)">
@@ -76,8 +77,7 @@ export class SearchComponent {
 	}
 
 	private clickFind(model: string) {
-		console.log(`You've tried seaching for 
-"${this.searchString}", but unfortunately seach doesn't work yet.`);
+		this.courseService.courseList = (this.filter.transform(this.courseService.courseList, this.searchString));
 	}
 
 	private openModal() {
