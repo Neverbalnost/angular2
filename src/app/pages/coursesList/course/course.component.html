@@ -1,12 +1,10 @@
-<div newCourse courseDate={{course.startDate}} class="course row">
-<!-- 	<div class="col-sm-3">{{todo.title}}</div>
-	<div class="col-sm-4">{{todo.subTitle}}</div>
-	<div class="col-sm-2">{{todo.startDate | date : 'MM/dd/yyyy'}}</div>
-	<div class="col-sm-2">{{todo.endDate | date : 'MM/dd/yyyy'}}</div>
-	<div class="col-sm-1">{{todo.status}}</div> -->
+<div newCourse courseDate={{course.startDate}} class="course row" [ngClass]="{'top-rated': course.topRated == 'true'}">
 	<div class="course-info">
 		<div class="course-title-and-date">
-			<div class="course-info-item h4">{{course.title}}</div>
+			<div class="course-info-item h4">
+				<span *ngIf="course.topRated == 'true'" class="star"></span>
+				{{course.title}}
+			</div>
 			<div class="course-info-item">{{course.id}}</div>
 			<div class="course-info-item">{{course.duration}}</div>
 			<div class="course-info-item">{{course.startDate | date : 'MM/dd/yyyy'}}</div>
