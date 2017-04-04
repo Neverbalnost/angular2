@@ -2,11 +2,11 @@
 	<div class="course-info">
 		<div class="course-title-and-date">
 			<div class="course-info-item h4">
+				{{course.title | uppercase}}
 				<span *ngIf="course.topRated == 'true'" class="star"></span>
-				{{course.title}}
 			</div>
 			<div class="course-info-item">{{course.id}}</div>
-			<div class="course-info-item">{{course.duration}}</div>
+			<div class="course-info-item">{{course.duration | duration}}</div>
 			<div class="course-info-item">{{course.startDate | date : 'MM/dd/yyyy'}}</div>
 		</div>
 		{{course.description}}
