@@ -1,12 +1,12 @@
-import {Pipe, PipeTransform} from '@angular/core';
+import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-	name: 'filter'
+	name: 'myFilter'
 })
-export class FilterPipe{
+export class FilterPipe implements PipeTransform {
 
-	transform(array, searchText){
-		return array.filter((item)=> {
+	public transform(array, searchText) {
+		return array.filter((item) => {
 			return item.title.includes(searchText);
 		});
 	}

@@ -1,6 +1,11 @@
-import { Component, ViewEncapsulation, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
+import { Component,
+		ViewEncapsulation,
+		Input,
+		Output,
+		EventEmitter,
+		ChangeDetectionStrategy } from '@angular/core';
 import { CourseService } from '../../../core/services';
-import { DomSanitizer } from '@angular/platform-browser'
+import { DomSanitizer } from '@angular/platform-browser';
 import { FormBuilder } from '@angular/forms';
 import { FilterPipe } from './../../pipes';
 
@@ -13,12 +18,8 @@ import { FilterPipe } from './../../pipes';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SearchComponent {
-	private modalHidden: boolean = true;
-	private modalText;
-	private modalTitle: string = 'Starting a new course, huh?';
 
 	@Input() public searchString: string;
-
 
 	public newCourseForm = this.fb.group({
 		title: [''],
@@ -28,8 +29,16 @@ export class SearchComponent {
 		desc: ['']
 	});
 
-	constructor(private courseService: CourseService, private sanitizer: DomSanitizer, public fb: FormBuilder, private filter: FilterPipe) {
-		this.modalText= sanitizer.bypassSecurityTrustHtml(
+	public modalHidden: boolean = true;
+	public modalText;
+	public modalTitle: string = 'Starting a new course, huh?';
+
+	constructor(
+		private courseService: CourseService,
+		private sanitizer: DomSanitizer,
+		public fb: FormBuilder, private filter: FilterPipe
+		) {
+		this.modalText = sanitizer.bypassSecurityTrustHtml(
 			`
 			<form [formGroup]="newCourseForm" (ngSubmit)="sendCourseData($event)">
 				<div class="form-group row">
@@ -56,7 +65,7 @@ export class SearchComponent {
 				<div class="form-group row">
 					<label for="course-duration" class="col-2 col-form-label">Duration</label>
 					<div class="col-10">
-						<input class="form-control" formControlName="duration" type="text" value="" id="course-duration">
+						<input class="form-control" formControlName="duration" id="course-duration">
 					</div>
 				</div>
 
@@ -69,18 +78,19 @@ export class SearchComponent {
 			);
 	}
 
-	sendCourseData(data) {
+	public sendCourseData(data) {
 		if (data) {
 			this.courseService.createCourse();
 		}
 		this.modalHidden = true;
 	}
 
-	private clickFind(model: string) {
-		this.courseService.courseList = (this.filter.transform(this.courseService.courseList, this.searchString));
+	public clickFind(model: string) {
+		const newList = this.filter.transform(this.courseService.courseList, this.searchString);
+		this.courseService.updateCourseList(newList);
 	}
 
-	private openModal() {
+	public openModal() {
 		this.modalHidden = false;
 	}
 }

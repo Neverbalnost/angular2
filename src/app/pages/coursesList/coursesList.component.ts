@@ -27,6 +27,21 @@ export class CoursesListComponent implements OnInit, OnDestroy {
 		this.courseList = [];
 	}
 
+	public ngOnInit() {
+		let self = this;
+		this.loaderService.Show();
+		this.courseServiceSubscription = this.courseService.CourseList
+						.subscribe((res: Course[]) => {
+			console.log('Got data', res);
+			this.courseList = res;
+			setTimeout(() => { self.loaderService.Hide(); }, 200);
+		});
+	}
+
+	public ngOnDestroy() {
+		this.courseServiceSubscription.unsubscribe();
+	}
+
 	private askForReals(id) {
 		this.currId = id;
 		this.modalHidden = false;
@@ -44,21 +59,6 @@ export class CoursesListComponent implements OnInit, OnDestroy {
 		}
 		this.modalHidden = true;
 		this.loaderService.Show();
-		setTimeout(function(){self.loaderService.Hide()}, 200);
-	}
-
-	public ngOnInit() {
-		let self = this;
-		this.loaderService.Show();
-
-		this.courseServiceSubscription = this.courseService.getCourses().subscribe((res: Course[]) => {
-			console.log('Got data', res);
-			this.courseList = res;
-			setTimeout(function(){self.loaderService.Hide()}, 200);
-		});
-	}
-
-	public ngOnDestroy() {
-		this.courseServiceSubscription.unsubscribe();
+		setTimeout(() => { self.loaderService.Hide(); }, 200);
 	}
 }

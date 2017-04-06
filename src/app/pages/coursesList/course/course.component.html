@@ -6,7 +6,7 @@
 				<span *ngIf="course.topRated == 'true'" class="star"></span>
 			</div>
 			<div class="course-info-item">{{course.id}}</div>
-			<div class="course-info-item">{{course.duration | duration}}</div>
+			<div class="course-info-item">{{course.duration | myDuration}}</div>
 			<div class="course-info-item">{{course.startDate | date : 'MM/dd/yyyy'}}</div>
 		</div>
 		{{course.description}}

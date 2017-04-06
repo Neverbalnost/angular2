@@ -1,6 +1,6 @@
 <div class="home-page">
 	<div class="course-list">
-		<course (updateCourse)="sendNewCourseData($event)" (deleteCourse)="askForReals($event)" *ngFor="let course of courseList | orderBy:'startDate'; let i = index" [course]="course"></course>
+		<course (updateCourse)="sendNewCourseData($event)" (deleteCourse)="askForReals($event)" *ngFor="let course of courseList | myOrderBy:'startDate'; let i = index" [course]="course"></course>
 		<div *ngIf="courseList.length == 0" class="course row"><h3>No courses available! Add one!</h3></div>
 	</div>
 </div>

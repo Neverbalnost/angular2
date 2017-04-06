@@ -8,13 +8,12 @@ import { Subscription } from 'rxjs';
 	styles: [require('./loader.component.scss')]
 })
 export class LoaderComponent implements OnInit {
-	private isLoading: boolean = false;
-	private loaderServiceSubscription: Subscription;
+	public isLoading: boolean = false;
+	public loaderServiceSubscription: Subscription;
 	constructor(private loaderService: LoaderService) {
-
 	}
 
-	ngOnInit() {
+	public ngOnInit() {
 		this.loaderServiceSubscription = this.loaderService.IsLoading.subscribe(
 			(isLoading: boolean) => {
 				this.isLoading = isLoading;

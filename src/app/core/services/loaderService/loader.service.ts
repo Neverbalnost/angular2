@@ -6,12 +6,11 @@ import 'rxjs/add/operator/share';
 @Injectable()
 
 export class LoaderService {
-	IsLoading: Observable<boolean>;
+	public IsLoading: Observable<boolean>;
 	private _observer: Observer<any>;
 
 	constructor() {
-		this.IsLoading = new Observable(observer =>
-		{
+		this.IsLoading = new Observable((observer) => {
 			this._observer = observer;
 		}).share();
 	}
