@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Response, Request, RequestOptions, RequestMethod, Http } from '@angular/http';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs';
 
 import 'rxjs/add/operator/map';
 
@@ -13,25 +14,24 @@ export class CourseService {
 	public courseList: Course[];
 	public CourseListSource = new BehaviorSubject<Course[]>([]);
 	public CourseList = this.CourseListSource.asObservable();
-	private courseListUrl: string = 'assets/mock-data/courses.json';
+	public courseListUrl: string = 'assets/mock-data/courses.json';
+	public initialSubscription = this.getCourses().subscribe((res: Course[]) => {
+			this.courseList = res;
+	});
 
-	constructor(private http: Http) {
-		this.getCourses();
-	}
+	constructor(private http: Http) {}
 
 	public updateCourseList(arr) {
 		this.CourseListSource.next(arr);
 	}
 
-	public getCourses () {
-		this.http.get(this.courseListUrl)
+	public getCourses (): Observable<Course[]> {
+		return this.http.get(this.courseListUrl)
 			.map((response: Response) => response.json())
 			.map((courseList: Course[]) => {
-				console.log('We\'re inside map!');
-				let sub = Observable.of(courseList).switchMap((res) => {
-					this.CourseListSource.next(res);
-					return this.CourseListSource;
-				});
+				this.courseList = courseList;
+				this.CourseListSource.next(courseList);
+				return this.courseList;
 			});
 	}
 
