@@ -39,11 +39,12 @@ export class CourseService {
 		this.courseList.push({
 			title: 'Course',
 			description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-			startDate: new Date(),
+			startDate: new Date().toISOString(),
 			id: this.getLastId() + 1,
 			topRated: false,
 			duration: '3 hours'
 		});
+		this.CourseListSource.next(this.courseList);
 	}
 
 	public getCourseById(id) {

@@ -1,9 +1,9 @@
-<div newCourse courseDate={{course.startDate}} class="course row" [ngClass]="{'top-rated': course.topRated == 'true'}">
+<div newCourse courseDate={{course.startDate}} class="course row" [ngClass]="{'top-rated': course.topRated}">
 	<div class="course-info">
 		<div class="course-title-and-date">
 			<div class="course-info-item h4">
 				{{course.title | uppercase}}
-				<span *ngIf="course.topRated == 'true'" class="star"></span>
+				<span *ngIf="course.topRated" class="star"></span>
 			</div>
 			<div class="course-info-item">{{course.id}}</div>
 			<div class="course-info-item">{{course.duration | myDuration}}</div>
