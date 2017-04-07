@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, OnInit, OnDestroy } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { CourseService } from '../../core/services';
@@ -28,13 +28,12 @@ export class CoursesListComponent implements OnInit, OnDestroy {
 	}
 
 	public ngOnInit() {
-		let self = this;
 		this.loaderService.Show();
 		this.courseServiceSubscription = this.courseService.CourseList
 						.subscribe((res: Course[]) => {
 			console.log('Got data', res);
 			this.courseList = res;
-			setTimeout(() => { self.loaderService.Hide(); }, 200);
+			setTimeout(() => { this.loaderService.Hide(); }, 200);
 		});
 	}
 
@@ -48,17 +47,13 @@ export class CoursesListComponent implements OnInit, OnDestroy {
 	}
 
 	private sendNewCourseData(courseData) {
-		console.log(courseData);
 		this.courseService.updateCourse(courseData.id, courseData.data);
 	}
 
 	private closeModal(data) {
-		let self = this;
-		if (data) {
-			this.courseList = this.courseService.deleteCourse(this.currId);
-		}
+		this.courseService.deleteCourse(this.currId);
 		this.modalHidden = true;
 		this.loaderService.Show();
-		setTimeout(() => { self.loaderService.Hide(); }, 200);
+		setTimeout(() => { this.loaderService.Hide(); }, 200);
 	}
 }

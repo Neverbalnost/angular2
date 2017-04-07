@@ -36,15 +36,14 @@ export class CourseService {
 	}
 
 	public createCourse() {
-		this.courseList.push({
+		this.CourseListSource.next([...this.courseList, {
 			title: 'Course',
 			description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
 			startDate: new Date().toISOString(),
 			id: this.getLastId() + 1,
 			topRated: false,
-			duration: '3 hours'
-		});
-		this.CourseListSource.next(this.courseList);
+			duration: '360'
+		}]);
 	}
 
 	public getCourseById(id) {
@@ -72,8 +71,7 @@ export class CourseService {
 			if (course.id !== id) { return true; }
 			return false;
 		});
-
-		return this.courseList;
+		this.CourseListSource.next(this.courseList);
 	}
 
 	private extractData(res: Response) {
