@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { AuthService } from '../../../core/services';
 import { Subscription } from 'rxjs';
 
@@ -9,13 +9,13 @@ import { Subscription } from 'rxjs';
 	providers: [],
 	encapsulation: ViewEncapsulation.None
 })
-export class HeaderComponent {
-	private isLoggedIn: boolean = false;
-	private authServiceSubscription: Subscription;
+export class HeaderComponent implements OnInit {
+	public isLoggedIn: boolean = false;
+	public authServiceSubscription: Subscription;
 	constructor(private authService: AuthService) {
 	}
 
-	ngOnInit() {
+	public ngOnInit() {
 		this.authServiceSubscription = this.authService.IsAuthenticated.subscribe(
 			(isLogged: boolean) => {
 				this.isLoggedIn = isLogged;

@@ -1,4 +1,10 @@
-import { Component, ViewEncapsulation, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
+import {
+	Component,
+	ViewEncapsulation,
+	Input,
+	Output,
+	EventEmitter,
+	ChangeDetectionStrategy } from '@angular/core';
 import { Course } from '../../../core/entities';
 
 @Component({
@@ -16,14 +22,16 @@ export class CourseComponent {
 
 	@Output() public updateCourse = new EventEmitter();
 
+	public courseDate: Date;
+
 	constructor() {
 	}
 	public deleteClick(id: number) {
 		this.deleteCourse.emit(id);
 	}
 
-	public updateClick(id) {
-		this.updateCourse.emit({id: id, data: {
+	public updateClick(userId) {
+		this.updateCourse.emit({id: userId, data: {
 			title: prompt('Give me the new title'),
 			id: prompt('Give me the new id'),
 			duration: prompt('Give me the new duration'),

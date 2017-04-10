@@ -1,4 +1,9 @@
-import { Component, ViewEncapsulation, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
+import { Component,
+	ViewEncapsulation,
+	Input,
+	Output,
+	EventEmitter,
+	ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
 	selector: 'modal',
@@ -9,17 +14,15 @@ import { Component, ViewEncapsulation, Input, Output, EventEmitter, ChangeDetect
 })
 
 export class ModalComponent {
-	@Input() modalHidden;
-	@Input() modalText;
-	@Input() modalTitle;
+	@Input() public modalHidden;
+	@Input() public modalText;
+	@Input() public modalTitle;
 
 	@Output() public userConfirm = new EventEmitter();
 
+	constructor() {	}
+
 	public userAnswer(answer: boolean) {
 		this.userConfirm.emit(answer);
-	}
-
-	constructor() {
-
 	}
 }

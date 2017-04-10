@@ -14,15 +14,11 @@ import { LoaderService } from '../../core/services';
 export class LoginPageComponent implements OnInit, OnDestroy {
 	private isLoggedIn: boolean = false;
 	private authServiceSubscription: Subscription;
-	constructor(private authService: AuthService, private router: Router, private loaderService: LoaderService) {
-	}
 
-	private login(name, pass) {
-		let self = this;
-		this.loaderService.Show();
-		setTimeout(function(){self.loaderService.Hide()}, 300);
-		this.authService.changeUserInfo(name);
-		this.authService.Login(name, pass);
+	constructor(
+		private authService: AuthService,
+		private router: Router,
+		private loaderService: LoaderService) {
 	}
 
 	public ngOnInit() {
@@ -35,5 +31,13 @@ export class LoginPageComponent implements OnInit, OnDestroy {
 	}
 
 	public ngOnDestroy() {
+	}
+
+	private login(name, pass) {
+		let self = this;
+		this.loaderService.Show();
+		setTimeout(() => { self.loaderService.Hide(); }, 300);
+		this.authService.changeUserInfo(name);
+		this.authService.Login(name, pass);
 	}
 }

@@ -1,4 +1,5 @@
 @import "../../../styles/variables/colors.scss";
+@import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
 
 
 .course {
@@ -7,6 +8,10 @@
 	justify-content: space-between;
 	margin-top: 5px;
 	padding: 10px;
+
+	&.top-rated {
+		background: #dedede;
+	}
 
 	&-info {
 		width:80%
@@ -20,8 +25,17 @@
 		.course-info-item {
 
 			&:first-child {
-				width:40%;
+				width:60%;
 			}
 		}
+	}
+
+	.star:before {
+		margin: 5px;
+		color: yellow;
+		font-size: 1.25em;
+		font-family: FontAwesome;
+		display: inline-block;
+		content: "\f005";
 	}
 }
