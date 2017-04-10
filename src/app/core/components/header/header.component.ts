@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, OnInit } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit, OnDestroy } from '@angular/core';
 import { AuthService } from '../../../core/services';
 import { Subscription } from 'rxjs';
 
@@ -9,7 +9,7 @@ import { Subscription } from 'rxjs';
 	providers: [],
 	encapsulation: ViewEncapsulation.None
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
 	public isLoggedIn: boolean = false;
 	public authServiceSubscription: Subscription;
 	constructor(private authService: AuthService) {
@@ -20,5 +20,9 @@ export class HeaderComponent implements OnInit {
 			(isLogged: boolean) => {
 				this.isLoggedIn = isLogged;
 		});
+	}
+
+	public ngOnDestroy() {
+		this.authServiceSubscription.unsubscribe();
 	}
 }

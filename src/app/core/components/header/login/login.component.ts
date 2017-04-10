@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, OnInit } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit, OnDestroy } from '@angular/core';
 import { AuthService } from '../../../../core/services';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -9,7 +9,7 @@ import { Subscription } from 'rxjs';
 	providers: [],
 	encapsulation: ViewEncapsulation.None
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
 	public subscription: Subscription;
 	public username: string;
 	public authServiceSubscription: Subscription;
@@ -24,6 +24,10 @@ export class LoginComponent implements OnInit {
 		});
 		this.subscription = this.authService.userInfo
 						.subscribe((username) => this.username = username);
+	}
+
+	public ngOnDestroy() {
+		this.authServiceSubscription.unsubscribe();
 	}
 
 	public logout() {

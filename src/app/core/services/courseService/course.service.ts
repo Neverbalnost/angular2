@@ -29,9 +29,21 @@ export class CourseService {
 		return this.http.get(this.courseListUrl)
 			.map((response: Response) => response.json())
 			.map((courseList: Course[]) => {
-				this.courseList = courseList;
-				this.CourseListSource.next(courseList);
-				return this.courseList;
+				const filteredList = courseList.filter((course) => {
+					const currDate = new Date();
+					const courseDate = (new Date(course.startDate));
+					if (courseDate < currDate) {
+						const timeDiff = Math.abs(currDate.getTime() - courseDate.getTime());
+						const diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+						console.log(course.title + ' diff days is ' + diffDays);
+						if (diffDays > 14 ) { return false; }
+					}
+					return true;
+				});
+
+				this.courseList = filteredList;
+				this.CourseListSource.next(filteredList);
+				return filteredList;
 			});
 	}
 
