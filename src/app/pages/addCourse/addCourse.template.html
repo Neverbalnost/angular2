@@ -23,10 +23,10 @@
 	<div class="form-group row">
 		<label for="course-duration" class="col-2 col-form-label">Duration</label>
 		<div class="col-8">
-			<input class="form-control" ng-model="duration" formControlName="duration" id="course-duration"> 
+			<input class="form-control" [(ngModel)]="duration" (change)="formatDurarion()" formControlName="duration" id="course-duration"> 
 		</div>
 		<div class="col-2">
-			{{duration}}
+			{{durationFormated}}
 		</div>
 	</div>
 

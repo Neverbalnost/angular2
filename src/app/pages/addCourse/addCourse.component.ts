@@ -12,6 +12,9 @@ import { DurationPipe } from './../../core/pipes';
 })
 export class AddCourseComponent implements OnInit, OnDestroy {
 
+	public duration: number;
+	public durationFormated: string;
+
 	public newCourseForm = this.fb.group({
 		title: [''],
 		start: [''],
@@ -20,7 +23,11 @@ export class AddCourseComponent implements OnInit, OnDestroy {
 		desc: ['']
 	});
 
-	constructor(public fb: FormBuilder) {
+	constructor(public fb: FormBuilder, private format: DurationPipe) {
+	}
+
+	public formatDurarion() {
+		this.durationFormated = this.format.transform(this.duration);
 	}
 
 	public ngOnInit() {
