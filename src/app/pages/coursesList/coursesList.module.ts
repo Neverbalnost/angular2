@@ -16,13 +16,15 @@ import { NewCourseDirective } from './../../core/directives/newCourse/newCourse.
 
 // Pipes
 import { OrderByPipe } from './../../core/pipes';
+import { DurationPipe } from './../../core/pipes';
 
 @NgModule({
 	declarations: [
 		CoursesListComponent,
 		CourseComponent,
 		NewCourseDirective,
-		OrderByPipe
+		OrderByPipe,
+		DurationPipe
 	],
 	imports: [
 		routes,
