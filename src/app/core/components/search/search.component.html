@@ -1,7 +1,5 @@
 <div class="search">
 	<input [(ngModel)]="searchString" type="text" placeholder="Name fragment or date">
 	<button (click)="clickFind($event)">Find</button>
-	<button (click)="openModal()" class="add-course">Add Course</button>
+	<button (click)="redirectToAdd()" class="add-course">Add Course</button>
 </div>
-
-<modal (userConfirm)="sendCourseData($event)" [modalHidden]="modalHidden" [modalText]="modalText" [modalTitle]="modalTitle"></modal>

@@ -1,34 +1,15 @@
-<form [formGroup]="newCourseForm" (ngSubmit)="sendCourseData($event)">
-	<div class="form-group row">
-		<label for="course-title" class="col-2 col-form-label">Title</label>
-		<div class="col-10">
-			<input class="form-control" formControlName="title" type="text" value="" id="course-title">
-		</div>
+<div class="login-page">
+	<div class="login-field">
+		<label>Your Heroic Name</label>
+		<input [(ngModel)]="username" type="text">
 	</div>
-
-	<div class="form-group row">
-		<label for="course-date" class="col-2 col-form-label">Start Date</label>
-		<div class="col-10">
-			<input class="form-control" formControlName="start" type="date" value="" id="course-date">
-		</div>
+	<div class="login-field">
+		<label>Your Super Secret Password</label>
+		<input [(ngModel)]="password" type="password">
 	</div>
-
-	<div class="form-group row">
-		<label for="course-id" class="col-2 col-form-label">Id</label>
-		<div class="col-10">
-			<input class="form-control" formControlName="id" type="number" value="" id="course-id">
-		</div>
+	<div class="login-field">
+		<button (click)="login(username, password)">
+			Go!
+		</button>
 	</div>
-
-	<div class="form-group row">
-		<label for="course-duration" class="col-2 col-form-label">Duration</label>
-		<div class="col-10">
-			<input class="form-control" formControlName="duration" id="course-duration">
-		</div>
-	</div>
-
-	<div class="form-group">
-		<label for="course-desc">Description</label>
-		<textarea class="form-control" formControlName="desc" id="course-desc" rows="3"></textarea>
-	</div>
-</form>
+</div>

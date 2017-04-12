@@ -34,9 +34,12 @@ import { AddCourseModule } from './pages/addCourse';
 // Services
 import { CourseService } from './core/services';
 
+// Pipes
+import { DurationPipe } from './core/pipes';
+
 // Application wide providers
 const APP_PROVIDERS = [
-	CourseService
+	CourseService, DurationPipe
 ];
 
 /**
