@@ -30,6 +30,7 @@ import { Router } from '@angular/router';
 	template: require('./app.template.html')
 })
 export class AppComponent implements OnInit, OnDestroy {
+	public searchResult;
 	private isLoggedIn: boolean = false;
 	private authServiceSubscription: Subscription;
 	constructor(private authService: AuthService, private router: Router, private ngZone: NgZone) {
@@ -49,5 +50,9 @@ export class AppComponent implements OnInit, OnDestroy {
 
 	public ngOnDestroy() {
 		this.authServiceSubscription.unsubscribe();
+	}
+
+	private getSearchResult(data) {
+		this.searchResult = data;
 	}
 }

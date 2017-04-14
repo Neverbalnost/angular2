@@ -10,24 +10,25 @@ import { Subscription } from 'rxjs';
 	encapsulation: ViewEncapsulation.None
 })
 export class LoginComponent implements OnInit, OnDestroy {
-	public subscription: Subscription;
+	public userInfo: Subscription;
 	public username: string;
-	public authServiceSubscription: Subscription;
+	public isAuthSubscription: Subscription;
 
 	constructor (private authService: AuthService, private router: Router) {
 	}
 
 	public ngOnInit() {
-		this.authServiceSubscription = this.authService.IsAuthenticated.subscribe(
+		this.isAuthSubscription = this.authService.IsAuthenticated.subscribe(
 			(isLogged: boolean) => {
 					this.router.navigate(['login']);
 		});
-		this.subscription = this.authService.userInfo
+		this.userInfo = this.authService.userInfo
 						.subscribe((username) => this.username = username);
 	}
 
 	public ngOnDestroy() {
-		this.authServiceSubscription.unsubscribe();
+		this.isAuthSubscription.unsubscribe();
+		this.userInfo.unsubscribe();
 	}
 
 	public logout() {
