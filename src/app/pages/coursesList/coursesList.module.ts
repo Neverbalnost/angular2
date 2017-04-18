@@ -15,16 +15,16 @@ import { ModalModule } from './../../core/components/modal/modal.module';
 import { NewCourseDirective } from './../../core/directives/newCourse/newCourse.directive';
 
 // Pipes
-import { DurationPipe } from './../../core/pipes';
 import { OrderByPipe } from './../../core/pipes';
+import { DurationPipe } from './../../core/pipes';
 
 @NgModule({
 	declarations: [
 		CoursesListComponent,
 		CourseComponent,
 		NewCourseDirective,
-		DurationPipe,
-		OrderByPipe
+		OrderByPipe,
+		DurationPipe
 	],
 	imports: [
 		routes,

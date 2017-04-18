@@ -4,6 +4,7 @@
 import {
 	Component,
 	OnInit,
+	OnDestroy,
 	ViewEncapsulation,
 	NgZone
 } from '@angular/core';
@@ -28,7 +29,8 @@ import { Router } from '@angular/router';
 	providers: [AuthService, LoaderService],
 	template: require('./app.template.html')
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
+	public searchResult;
 	private isLoggedIn: boolean = false;
 	private authServiceSubscription: Subscription;
 	constructor(private authService: AuthService, private router: Router, private ngZone: NgZone) {
@@ -44,5 +46,13 @@ export class AppComponent implements OnInit {
 		}
 		this.ngZone.onUnstable.subscribe((data) => console.log('unstable', data));
 		this.ngZone.onStable.subscribe((data) => console.log('stable', data));
+	}
+
+	public ngOnDestroy() {
+		this.authServiceSubscription.unsubscribe();
+	}
+
+	private getSearchResult(data) {
+		this.searchResult = data;
 	}
 }

@@ -1,5 +1,5 @@
 ﻿import { Routes, RouterModule } from '@angular/router';
-import { LoginPageComponent }    from './loginPage.component';
+import { LoginPageComponent } from './loginPage.component';
 
 // Route Configuration
 const loginPageRoutes: Routes = [

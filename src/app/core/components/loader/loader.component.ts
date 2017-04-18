@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, OnInit } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit, OnDestroy } from '@angular/core';
 import { LoaderService } from '../../../core/services';
 import { Subscription } from 'rxjs';
 
@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs';
 	templateUrl: './loader.component.html',
 	styles: [require('./loader.component.scss')]
 })
-export class LoaderComponent implements OnInit {
+export class LoaderComponent implements OnInit, OnDestroy {
 	public isLoading: boolean = false;
 	public loaderServiceSubscription: Subscription;
 	constructor(private loaderService: LoaderService) {
@@ -19,4 +19,9 @@ export class LoaderComponent implements OnInit {
 				this.isLoading = isLoading;
 		});
 	}
+
+	public ngOnDestroy() {
+		this.loaderServiceSubscription.unsubscribe();
+	}
+
 }

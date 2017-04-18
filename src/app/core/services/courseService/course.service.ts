@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Response, Request, RequestOptions, RequestMethod, Http } from '@angular/http';
+import 'rxjs/add/operator/switchMap';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs';
@@ -11,32 +12,28 @@ import { Course } from '../../entities';
 @Injectable()
 export class CourseService {
 
-	public courseList: Course[];
-	public CourseListSource = new BehaviorSubject<Course[]>([]);
-	public CourseList = this.CourseListSource.asObservable();
+	public CourseList = new BehaviorSubject<Course[]>([]);
+	public CourseListObservable = this.CourseList.asObservable();
 	public courseListUrl: string = 'assets/mock-data/courses.json';
-	public initialSubscription = this.getCourses().subscribe((res: Course[]) => {
-			this.courseList = res;
-	});
 
 	constructor(private http: Http) {}
 
 	public updateCourseList(arr) {
-		this.CourseListSource.next(arr);
+		this.CourseList.next(arr);
 	}
 
 	public getCourses (): Observable<Course[]> {
 		return this.http.get(this.courseListUrl)
 			.map((response: Response) => response.json())
-			.map((courseList: Course[]) => {
-				this.courseList = courseList;
-				this.CourseListSource.next(courseList);
-				return this.courseList;
-			});
+			.map((courseList: Course[]) => this.filterOutdatedCourses(courseList))
+			.switchMap((filtered) => {
+				this.CourseList = new BehaviorSubject<Course[]>(filtered);
+				return this.CourseList;
+		});
 	}
 
 	public createCourse() {
-		this.CourseListSource.next([...this.courseList, {
+		this.CourseList.next([...this.CourseList.getValue(), {
 			title: 'Course',
 			description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
 			startDate: new Date().toISOString(),
@@ -47,13 +44,13 @@ export class CourseService {
 	}
 
 	public getCourseById(id) {
-		return this.courseList.find((course) => {
+		return this.CourseList.getValue().find((course) => {
 			return course.id === id;
 		});
 	}
 
 	public getLastId() {
-		return this.courseList[this.courseList.length - 1].id;
+		return this.CourseList.getValue()[this.CourseList.getValue().length - 1].id;
 	}
 
 	public updateCourse(id, data) {
@@ -67,11 +64,24 @@ export class CourseService {
 	}
 
 	public deleteCourse(id) {
-		this.courseList = this.courseList.filter((course) => {
+		this.CourseList.next(this.CourseList.getValue().filter((course) => {
 			if (course.id !== id) { return true; }
 			return false;
+		}));
+	}
+
+	private filterOutdatedCourses(courseList: Course[]): Course[] {
+		return courseList.filter((course) => {
+			const currDate = new Date();
+			const courseDate = (new Date(course.startDate));
+			if (courseDate < currDate) {
+				const timeDiff = Math.abs(currDate.getTime() - courseDate.getTime());
+				const diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+				console.log(course.title + ' diff days is ' + diffDays);
+				if (diffDays > 14 ) { return false; }
+			}
+			return true;
 		});
-		this.CourseListSource.next(this.courseList);
 	}
 
 	private extractData(res: Response) {
