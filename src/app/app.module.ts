@@ -24,7 +24,7 @@ import { AppComponent } from './app.component';
 import { NoContentComponent } from './pages/no-content';
 
 // Components
-import { HeaderModule, SearchModule, FooterModule, LoaderModule } from './core/components';
+import { HeaderModule, FooterModule, LoaderModule } from './core/components';
 
 // Pages
 import { CoursesListModule } from './pages/coursesList';
@@ -54,7 +54,6 @@ const APP_PROVIDERS = [
 		HttpModule,
 		RouterModule.forRoot(ROUTES, {useHash: true, preloadingStrategy: PreloadAllModules}),
 		HeaderModule,
-		SearchModule,
 		FooterModule,
 		CoursesListModule,
 		LoginPageModule,

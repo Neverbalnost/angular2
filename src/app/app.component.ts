@@ -13,6 +13,8 @@ import { LoaderService } from './core/services';
 import { AuthService } from './core/services';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Course } from './core/entities';
 
 /*
  * App Component
@@ -30,7 +32,6 @@ import { Router } from '@angular/router';
 	template: require('./app.template.html')
 })
 export class AppComponent implements OnInit, OnDestroy {
-	public searchResult;
 	private isLoggedIn: boolean = false;
 	private authServiceSubscription: Subscription;
 	constructor(private authService: AuthService, private router: Router, private ngZone: NgZone) {
@@ -50,9 +51,5 @@ export class AppComponent implements OnInit, OnDestroy {
 
 	public ngOnDestroy() {
 		this.authServiceSubscription.unsubscribe();
-	}
-
-	private getSearchResult(data) {
-		this.searchResult = data;
 	}
 }

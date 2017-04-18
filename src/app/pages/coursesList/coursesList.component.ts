@@ -40,6 +40,10 @@ export class CoursesListComponent implements OnInit, OnDestroy {
 		this.courseServiceSubscription.unsubscribe();
 	}
 
+	private getSearchResult(data) {
+		this.courseList = data;
+	}
+
 	private askForReals(id) {
 		this.currId = id;
 		this.modalHidden = false;

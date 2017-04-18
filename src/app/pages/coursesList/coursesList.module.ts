@@ -10,6 +10,7 @@ import { routes } from './coursesList.routes';
 import { CoursesListComponent } from './coursesList.component';
 import { CourseComponent } from './course/course.component';
 import { ModalModule } from './../../core/components/modal/modal.module';
+import { SearchModule } from './../../core/components/search/search.module';
 
 // directives
 import { NewCourseDirective } from './../../core/directives/newCourse/newCourse.directive';
@@ -30,6 +31,7 @@ import { DurationPipe } from './../../core/pipes';
 		routes,
 		FormsModule,
 		ReactiveFormsModule,
+		SearchModule,
 		CommonModule,
 		ModalModule
 	],
