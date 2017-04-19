@@ -49,6 +49,17 @@ export class CoursesListComponent implements OnInit, OnDestroy {
 		this.modalHidden = false;
 	}
 
+	private giveNextCouses() {
+		const regex = /[?&]([^=#]+)=([^&#]*)/g;
+		const url = window.location.href;
+		let params = {start: undefined, count: undefined};
+		let match;
+		while (match = regex.exec(url)) {
+			params[match[1]] = match[2];
+		}
+		this.courseService.getCourses(parseInt(params.count, 10), parseInt(params.count, 10) + 4);
+	}
+
 	private sendNewCourseData(courseData) {
 		this.courseService.updateCourse(courseData.id, courseData.data);
 	}

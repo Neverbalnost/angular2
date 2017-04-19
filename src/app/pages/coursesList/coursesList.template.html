@@ -4,9 +4,10 @@
 		<course 
 			(updateCourse)="sendNewCourseData($event)" 
 			(deleteCourse)="askForReals($event)" 
-			*ngFor="let course of courseList | myOrderBy:'startDate'; let i = index" 
+			*ngFor="let course of courseList | myOrderBy:'date'; let i = index" 
 			[course]="course">
 		</course>
+		<a class="link" (click)="giveNextCouses()">next 4 >>></a>
 		<div *ngIf="courseList.length == 0" class="course row"><h3>No courses available! Add one!</h3></div>
 	</div>
 </div>
