@@ -1,8 +1,12 @@
 import { Injectable, EventEmitter } from '@angular/core';
+import { Response, Request, RequestOptions, RequestMethod, Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+
 import 'rxjs/add/operator/share';
+import 'rxjs/add/observable/throw';
+import 'rxjs/add/operator/catch';
 
 @Injectable()
 
@@ -12,20 +16,30 @@ export class AuthService {
 	public userInfo = this.UserInfoSource.asObservable();
 	private userLoggedIn: boolean = false;
 	private _observer: Observer<any>;
+	private authUrl: string = 'auth/login';
 
-	constructor() {
+	constructor(private http: Http) {
 		this.IsAuthenticated = new Observable((observer) =>
 			this._observer = observer).share();
 	}
 
 	public Login(userName, userPass) {
 		let currUser = {
-			name: userName,
-			pass: userPass
+			login: userName,
+			password: userPass
 		};
-		localStorage.setItem('currUser', JSON.stringify(currUser));
-		this.userLoggedIn = true;
-		this.changeState(this.userLoggedIn);
+		return this.http.post(this.authUrl, currUser)
+			.catch((error: any) => {
+				alert(error._body);
+				return Observable.throw(error);
+			})
+			.map((response: Response) => response.json())
+			.subscribe((response) => {
+				localStorage.setItem('currUserToken', response.token);
+				console.log('The server answered: ', response);
+				this.userLoggedIn = true;
+				this.changeState(this.userLoggedIn);
+			});
 	}
 
 	public Logout() {
