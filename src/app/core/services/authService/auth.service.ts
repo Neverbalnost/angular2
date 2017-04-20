@@ -37,7 +37,6 @@ export class AuthService {
 			.map((response: Response) => response.json())
 			.subscribe((response) => {
 				localStorage.setItem('currUserToken', response.token);
-				console.log('The auth server answered: ', response);
 				this.userLoggedIn = true;
 				this.changeState(this.userLoggedIn);
 				this.GetUserInfo();

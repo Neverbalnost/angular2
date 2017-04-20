@@ -23,14 +23,12 @@ export class CoursesListComponent implements OnInit, OnDestroy {
 	constructor(
 		private courseService: CourseService,
 		private loaderService: LoaderService) {
-		console.log('Courses page constructor');
 
 		this.courseList = [];
 	}
 
 	public ngOnInit() {
 		let params = this.getUrlParams();
-		console.log(params);
 		this.loaderService.Show();
 		this.courseServiceSubscription = this.courseService
 		.getCourses(params.start, params.count)
@@ -44,13 +42,18 @@ export class CoursesListComponent implements OnInit, OnDestroy {
 	}
 
 	private processCourses(res) {
-		console.log('Got data', res);
 		this.courseList = res;
 		setTimeout(() => { this.loaderService.Hide(); }, 200);
 	}
 
-	private getSearchResult(data) {
-		this.courseList = data;
+	private getSearchResult(searchString) {
+		let params = this.getUrlParams();
+		console.log('searchString is: ', searchString);
+		this.courseServiceSubscription = this.courseService
+		.getCourses(params.start, params.count, searchString)
+		.subscribe((res: Course[]) => {
+			this.processCourses(res);
+		});
 	}
 
 	private askForReals(id) {

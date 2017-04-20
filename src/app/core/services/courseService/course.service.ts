@@ -21,20 +21,22 @@ export class CourseService {
 		this.CourseList.next(arr);
 	}
 
-	public getCourses (start: number = 0, count: number = 4): Observable<Course[]> {
-		console.log('We\'re in place', start, count);
-		return this.http.get(`${this.courseListUrl}?start=${start}&count=${count}`)
+	public getCourses (start: number = 0, count: number = 4, search?: string): Observable<Course[]> {
+		const getUrl = search ? `${this.courseListUrl}?start=${start}&count=${count}&search=${search}` : `${this.courseListUrl}?start=${start}&count=${count}`;
+		return this.http.get(getUrl)
 			.map((response: Response) => {
-				console.log(response);
 				return response.json();
 			})
 			// .map((courseList: Course[]) => this.filterOutdatedCourses(courseList))
 			.switchMap((filtered) => {
-				const slicedUrl = window.location.hash.slice(0, window.location.hash.indexOf('?'));
 				this.CourseList.next(filtered);
 				
-				if (window.location.hash.indexOf('?') != -1) {
+				if (window.location.hash.indexOf('?') !== -1) {
+					const slicedUrl = window.location.hash.slice(0, window.location.hash.indexOf('?'));
 					window.location.hash = slicedUrl + `?start=${start}&count=${count}`;
+					if (search) {
+						window.location.hash += `&search=${search}`
+					}
 				} else { window.location.hash += `?start=${start}&count=${count}`; }
 				return this.CourseList;
 		});

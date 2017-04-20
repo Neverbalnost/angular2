@@ -1,5 +1,5 @@
 <div class="home-page">
-	<search (searchResult)="getSearchResult($event)"></search>
+	<search (searchStringOutput)="getSearchResult($event)"></search>
 	<div class="course-list">
 		<course 
 			(updateCourse)="sendNewCourseData($event)" 
