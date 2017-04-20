@@ -17,6 +17,7 @@ export class AuthService {
 	private userLoggedIn: boolean = false;
 	private _observer: Observer<any>;
 	private authUrl: string = 'auth/login';
+	private infoUrl: string = 'auth/userinfo';
 
 	constructor(private http: Http) {
 		this.IsAuthenticated = new Observable((observer) =>
@@ -36,9 +37,10 @@ export class AuthService {
 			.map((response: Response) => response.json())
 			.subscribe((response) => {
 				localStorage.setItem('currUserToken', response.token);
-				console.log('The server answered: ', response);
+				console.log('The auth server answered: ', response);
 				this.userLoggedIn = true;
 				this.changeState(this.userLoggedIn);
+				this.GetUserInfo();
 			});
 	}
 
@@ -49,7 +51,16 @@ export class AuthService {
 	}
 
 	public GetUserInfo() {
-		return JSON.parse(localStorage.getItem('currUser')).name;
+		const token = JSON.parse(localStorage.getItem('currUserToken'));
+		return this.http.post(this.infoUrl, token)
+			.catch((error: any) => {
+				alert(error._body);
+				return Observable.throw(error);
+			})
+			.map((response: Response) => response.json())
+			.subscribe((response) => {
+				this.changeUserInfo(response);
+			});
 	}
 
 	public changeUserInfo(info) {

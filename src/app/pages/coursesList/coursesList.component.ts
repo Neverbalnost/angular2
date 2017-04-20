@@ -30,6 +30,7 @@ export class CoursesListComponent implements OnInit, OnDestroy {
 
 	public ngOnInit() {
 		let params = this.getUrlParams();
+		console.log(params);
 		this.loaderService.Show();
 		this.courseServiceSubscription = this.courseService
 		.getCourses(params.start, params.count)
