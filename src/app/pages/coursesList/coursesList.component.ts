@@ -1,6 +1,5 @@
 import { Component, ViewEncapsulation, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { Subscription } from 'rxjs';
-
 import { CourseService } from '../../core/services';
 import { LoaderService } from '../../core/services';
 import { Course } from '../../core/entities';
@@ -21,23 +20,32 @@ export class CoursesListComponent implements OnInit, OnDestroy {
 	private modalTitle: string = `Delete this course?`;
 	private currId: number;
 
-	constructor(private courseService: CourseService, private loaderService: LoaderService) {
+	constructor(
+		private courseService: CourseService,
+		private loaderService: LoaderService) {
 		console.log('Courses page constructor');
 
 		this.courseList = [];
 	}
 
 	public ngOnInit() {
+		let params = this.getUrlParams();
 		this.loaderService.Show();
-		this.courseServiceSubscription = this.courseService.getCourses().subscribe((res: Course[]) => {
-			console.log('Got data', res);
-			this.courseList = res;
-			setTimeout(() => { this.loaderService.Hide(); }, 200);
+		this.courseServiceSubscription = this.courseService
+		.getCourses(params.start, params.count)
+		.subscribe((res: Course[]) => {
+			this.processCourses(res);
 		});
 	}
 
 	public ngOnDestroy() {
 		this.courseServiceSubscription.unsubscribe();
+	}
+
+	private processCourses(res) {
+		console.log('Got data', res);
+		this.courseList = res;
+		setTimeout(() => { this.loaderService.Hide(); }, 200);
 	}
 
 	private getSearchResult(data) {
@@ -49,7 +57,7 @@ export class CoursesListComponent implements OnInit, OnDestroy {
 		this.modalHidden = false;
 	}
 
-	private giveNextCouses() {
+	private getUrlParams() {
 		const regex = /[?&]([^=#]+)=([^&#]*)/g;
 		const url = window.location.href;
 		let params = {start: undefined, count: undefined};
@@ -57,7 +65,16 @@ export class CoursesListComponent implements OnInit, OnDestroy {
 		while (match = regex.exec(url)) {
 			params[match[1]] = match[2];
 		}
-		this.courseService.getCourses(parseInt(params.count, 10), parseInt(params.count, 10) + 4);
+		return params;
+	}
+
+	private giveNextCouses() {
+		let params = this.getUrlParams();
+		this.courseServiceSubscription = this.courseService
+		.getCourses(parseInt(params.start, 10) + parseInt(params.count, 10), params.count)
+		.subscribe((res: Course[]) => {
+			this.processCourses(res);
+		});
 	}
 
 	private sendNewCourseData(courseData) {

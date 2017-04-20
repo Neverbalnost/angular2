@@ -13,7 +13,6 @@ import { Course } from '../../entities';
 export class CourseService {
 
 	public CourseList = new BehaviorSubject<Course[]>([]);
-	public CourseListObservable = this.CourseList.asObservable();
 	public courseListUrl: string = `courses`;
 
 	constructor(private http: Http) {}
@@ -31,8 +30,12 @@ export class CourseService {
 			})
 			// .map((courseList: Course[]) => this.filterOutdatedCourses(courseList))
 			.switchMap((filtered) => {
+				const slicedUrl = window.location.hash.slice(0, window.location.hash.indexOf('?'));
 				this.CourseList.next(filtered);
-				window.location.href += `?start=${start}&count=${count}`;
+				
+				if (window.location.hash.indexOf('?') != -1) {
+					window.location.hash = slicedUrl + `?start=${start}&count=${count}`;
+				} else { window.location.hash += `?start=${start}&count=${count}`; }
 				return this.CourseList;
 		});
 	}
