@@ -58,7 +58,7 @@ export class AuthService {
 			})
 			.map((response: Response) => response.json())
 			.subscribe((response) => {
-				this.changeUserInfo(response);
+				this.changeUserInfo(response.name.first);
 				this.changeState(this.userLoggedIn);
 			});
 	}
