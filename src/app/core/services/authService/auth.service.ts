@@ -1,8 +1,9 @@
 import { Injectable, EventEmitter } from '@angular/core';
-import { Response, Request, RequestOptions, RequestMethod, Http } from '@angular/http';
+import { Response, Request, RequestOptions, RequestMethod } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { HttpService } from './../httpService/http.service';
 
 import 'rxjs/add/operator/share';
 import 'rxjs/add/observable/throw';
@@ -19,7 +20,7 @@ export class AuthService {
 	private authUrl: string = 'auth/login';
 	private infoUrl: string = 'auth/userinfo';
 
-	constructor(private http: Http) {
+	constructor(private http: HttpService) {
 		this.IsAuthenticated = new Observable((observer) =>
 			this._observer = observer).share();
 	}
@@ -38,7 +39,6 @@ export class AuthService {
 			.subscribe((response) => {
 				localStorage.setItem('currUserToken', response.token);
 				this.userLoggedIn = true;
-				this.changeState(this.userLoggedIn);
 				this.GetUserInfo();
 			});
 	}
@@ -50,8 +50,8 @@ export class AuthService {
 	}
 
 	public GetUserInfo() {
-		const token = JSON.parse(localStorage.getItem('currUserToken'));
-		return this.http.post(this.infoUrl, token)
+		const token = localStorage.getItem('currUserToken');
+		this.http.post(this.infoUrl, token)
 			.catch((error: any) => {
 				alert(error._body);
 				return Observable.throw(error);
@@ -59,6 +59,7 @@ export class AuthService {
 			.map((response: Response) => response.json())
 			.subscribe((response) => {
 				this.changeUserInfo(response);
+				this.changeState(this.userLoggedIn);
 			});
 	}
 
