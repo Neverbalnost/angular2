@@ -7,7 +7,7 @@
 			*ngFor="let course of courseList | myOrderBy:'date'; let i = index" 
 			[course]="course">
 		</course>
-		<a class="link" (click)="giveNextCouses()">next 4 >>></a>
+		<a class="link" (click)="giveNextCourses()">next 4 >>></a>
 		<div *ngIf="courseList.length == 0" class="course row"><h3>No courses available! Add one!</h3></div>
 	</div>
 </div>
