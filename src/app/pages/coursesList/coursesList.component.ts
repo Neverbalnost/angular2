@@ -72,7 +72,7 @@ export class CoursesListComponent implements OnInit, OnDestroy {
 		return params;
 	}
 
-	private giveNextCouses() {
+	private giveNextCourses() {
 		let params = this.getUrlParams();
 		this.courseServiceSubscription = this.courseService
 		.getCourses(parseInt(params.start, 10) + parseInt(params.count, 10), params.count)
