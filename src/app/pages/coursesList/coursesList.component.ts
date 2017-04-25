@@ -31,10 +31,10 @@ export class CoursesListComponent implements OnInit, OnDestroy {
 		let params = this.getUrlParams();
 		this.loaderService.Show();
 		this.courseServiceSubscription = this.courseService
-		.getCourses(params.start, params.count)
-		.subscribe((res: Course[]) => {
-			this.processCourses(res);
-		});
+			.getCourses(params.start, params.count)
+			.subscribe((res: Course[]) => {
+				this.processCourses(res);
+			});
 	}
 
 	public ngOnDestroy() {
@@ -50,10 +50,10 @@ export class CoursesListComponent implements OnInit, OnDestroy {
 		let params = this.getUrlParams();
 		console.log('searchString is: ', searchString);
 		this.courseServiceSubscription = this.courseService
-		.getCourses(params.start, params.count, searchString)
-		.subscribe((res: Course[]) => {
-			this.processCourses(res);
-		});
+			.getCourses(params.start, params.count, searchString)
+			.subscribe((res: Course[]) => {
+				this.processCourses(res);
+			});
 	}
 
 	private askForReals(id) {
@@ -75,10 +75,10 @@ export class CoursesListComponent implements OnInit, OnDestroy {
 	private giveNextCourses() {
 		let params = this.getUrlParams();
 		this.courseServiceSubscription = this.courseService
-		.getCourses(parseInt(params.start, 10) + parseInt(params.count, 10), params.count)
-		.subscribe((res: Course[]) => {
-			this.processCourses(res);
-		});
+			.getCourses(parseInt(params.start, 10) + parseInt(params.count, 10), params.count)
+			.subscribe((res: Course[]) => {
+				this.processCourses(res);
+			});
 	}
 
 	private sendNewCourseData(courseData) {
