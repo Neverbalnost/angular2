@@ -45,8 +45,8 @@ export class AppComponent implements OnInit, OnDestroy {
 		if (!this.isLoggedIn) {
 			this.router.navigate(['login']);
 		}
-		this.ngZone.onUnstable.subscribe((data) => console.log('unstable', data));
-		this.ngZone.onStable.subscribe((data) => console.log('stable', data));
+		// this.ngZone.onUnstable.subscribe((data) => console.log('unstable', data));
+		// this.ngZone.onStable.subscribe((data) => console.log('stable', data));
 	}
 
 	public ngOnDestroy() {

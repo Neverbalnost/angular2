@@ -13,8 +13,7 @@ import { Course } from '../../entities';
 export class CourseService {
 
 	public CourseList = new BehaviorSubject<Course[]>([]);
-	public CourseListObservable = this.CourseList.asObservable();
-	public courseListUrl: string = 'assets/mock-data/courses.json';
+	public courseListUrl: string = `courses`;
 
 	constructor(private http: Http) {}
 
@@ -22,24 +21,40 @@ export class CourseService {
 		this.CourseList.next(arr);
 	}
 
-	public getCourses (): Observable<Course[]> {
-		return this.http.get(this.courseListUrl)
-			.map((response: Response) => response.json())
-			.map((courseList: Course[]) => this.filterOutdatedCourses(courseList))
+	public getCourses (start: number = 0, count: number = 4, search?: string): Observable<Course[]> {
+		const getUrl = search ? `${this.courseListUrl}?start=${start}&count=${count}&search=${search}` : `${this.courseListUrl}?start=${start}&count=${count}`;
+		return this.http.get(getUrl)
+			.map((response: Response) => {
+				return response.json();
+			})
+			// .map((courseList: Course[]) => this.filterOutdatedCourses(courseList))
 			.switchMap((filtered) => {
-				this.CourseList = new BehaviorSubject<Course[]>(filtered);
+				this.CourseList.next(filtered);
+				
+				if (window.location.hash.indexOf('?') !== -1) {
+					const slicedUrl = window.location.hash.slice(0, window.location.hash.indexOf('?'));
+					window.location.hash = slicedUrl + `?start=${start}&count=${count}`;
+					if (search) {
+						window.location.hash += `&search=${search}`
+					}
+				} else { window.location.hash += `?start=${start}&count=${count}`; }
 				return this.CourseList;
 		});
 	}
 
 	public createCourse() {
 		this.CourseList.next([...this.CourseList.getValue(), {
-			title: 'Course',
+			name: 'Course',
 			description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-			startDate: new Date().toISOString(),
+			date: new Date().toISOString(),
 			id: this.getLastId() + 1,
-			topRated: false,
-			duration: '360'
+			isTopRated: false,
+			length: '360',
+			authors: {
+				id: 1370,
+				firstName: 'Polly',
+				lastName: 'Sosa'
+			}
 		}]);
 	}
 
@@ -56,11 +71,11 @@ export class CourseService {
 	public updateCourse(id, data) {
 		const coursetoChange = this.getCourseById(id);
 
-		if (data.title) { coursetoChange.title = data.title; }
+		if (data.title) { coursetoChange.name = data.title; }
 		if (data.id) { coursetoChange.id = data.id; }
 		if (data.description) { coursetoChange.description = data.description; }
-		if (data.startDate) { coursetoChange.startDate = data.startDate; }
-		if (data.duration) { coursetoChange.duration = data.duration; }
+		if (data.startDate) { coursetoChange.date = data.startDate; }
+		if (data.duration) { coursetoChange.length = data.duration; }
 	}
 
 	public deleteCourse(id) {
@@ -73,11 +88,11 @@ export class CourseService {
 	private filterOutdatedCourses(courseList: Course[]): Course[] {
 		return courseList.filter((course) => {
 			const currDate = new Date();
-			const courseDate = (new Date(course.startDate));
+			const courseDate = (new Date(course.date));
 			if (courseDate < currDate) {
 				const timeDiff = Math.abs(currDate.getTime() - courseDate.getTime());
 				const diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
-				console.log(course.title + ' diff days is ' + diffDays);
+				console.log(course.name + ' diff days is ' + diffDays);
 				if (diffDays > 14 ) { return false; }
 			}
 			return true;

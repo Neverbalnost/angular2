@@ -1,6 +1,5 @@
 import { Component, ViewEncapsulation, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { Subscription } from 'rxjs';
-
 import { CourseService } from '../../core/services';
 import { LoaderService } from '../../core/services';
 import { Course } from '../../core/entities';
@@ -21,18 +20,20 @@ export class CoursesListComponent implements OnInit, OnDestroy {
 	private modalTitle: string = `Delete this course?`;
 	private currId: number;
 
-	constructor(private courseService: CourseService, private loaderService: LoaderService) {
-		console.log('Courses page constructor');
+	constructor(
+		private courseService: CourseService,
+		private loaderService: LoaderService) {
 
 		this.courseList = [];
 	}
 
 	public ngOnInit() {
+		let params = this.getUrlParams();
 		this.loaderService.Show();
-		this.courseServiceSubscription = this.courseService.getCourses().subscribe((res: Course[]) => {
-			console.log('Got data', res);
-			this.courseList = res;
-			setTimeout(() => { this.loaderService.Hide(); }, 200);
+		this.courseServiceSubscription = this.courseService
+		.getCourses(params.start, params.count)
+		.subscribe((res: Course[]) => {
+			this.processCourses(res);
 		});
 	}
 
@@ -40,13 +41,44 @@ export class CoursesListComponent implements OnInit, OnDestroy {
 		this.courseServiceSubscription.unsubscribe();
 	}
 
-	private getSearchResult(data) {
-		this.courseList = data;
+	private processCourses(res) {
+		this.courseList = res;
+		setTimeout(() => { this.loaderService.Hide(); }, 200);
+	}
+
+	private getSearchResult(searchString) {
+		let params = this.getUrlParams();
+		console.log('searchString is: ', searchString);
+		this.courseServiceSubscription = this.courseService
+		.getCourses(params.start, params.count, searchString)
+		.subscribe((res: Course[]) => {
+			this.processCourses(res);
+		});
 	}
 
 	private askForReals(id) {
 		this.currId = id;
 		this.modalHidden = false;
+	}
+
+	private getUrlParams() {
+		const regex = /[?&]([^=#]+)=([^&#]*)/g;
+		const url = window.location.href;
+		let params = {start: undefined, count: undefined};
+		let match;
+		while (match = regex.exec(url)) {
+			params[match[1]] = match[2];
+		}
+		return params;
+	}
+
+	private giveNextCourses() {
+		let params = this.getUrlParams();
+		this.courseServiceSubscription = this.courseService
+		.getCourses(parseInt(params.start, 10) + parseInt(params.count, 10), params.count)
+		.subscribe((res: Course[]) => {
+			this.processCourses(res);
+		});
 	}
 
 	private sendNewCourseData(courseData) {

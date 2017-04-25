@@ -20,7 +20,7 @@ export class SearchComponent {
 
 	@Input() public searchString: string;
 
-	@Output() public searchResult = new EventEmitter();
+	@Output() public searchStringOutput = new EventEmitter();
 
 	constructor(
 		private courseService: CourseService,
@@ -33,9 +33,6 @@ export class SearchComponent {
 	}
 
 	public clickFind(model: string) {
-		const newList = this.filter.transform(
-			this.courseService.CourseList.getValue(), this.searchString
-		);
-		this.searchResult.emit(newList);
+		this.searchStringOutput.emit(this.searchString);
 	}
 }

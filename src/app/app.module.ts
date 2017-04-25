@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpModule, RequestOptions, XHRBackend } from '@angular/http';
 import {
 	NgModule,
 	ApplicationRef
@@ -33,6 +33,7 @@ import { AddCourseModule } from './pages/addCourse';
 
 // Services
 import { CourseService } from './core/services';
+import { HttpService } from './core/services';
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -62,7 +63,14 @@ const APP_PROVIDERS = [
 	],
 	providers: [ // expose our Services and Providers into Angular's dependency injection
 		ENV_PROVIDERS,
-		APP_PROVIDERS
+		APP_PROVIDERS,
+		{
+			provide: HttpService,
+			useFactory: (backend: XHRBackend, options: RequestOptions) => {
+				return new HttpService(backend, options);
+		},
+			deps: [XHRBackend, RequestOptions]
+		}
 	]
 })
 export class AppModule {
