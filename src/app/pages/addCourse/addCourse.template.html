@@ -9,7 +9,7 @@
 	<div class="form-group row">
 		<label for="course-date" class="col-2 col-form-label">Start Date</label>
 		<div class="col-10">
-			<input class="form-control" formControlName="start" type="date" value="" id="course-date">
+			<date-input formControlName="start" id="course-date" ></date-input>
 		</div>
 	</div>
 
@@ -40,4 +40,5 @@
 		<label for="course-desc">Description</label>
 		<textarea class="form-control" formControlName="desc" id="course-desc" rows="3"></textarea>
 	</div>
+	<button class="btn btn-primary" type="submit">Submit</button>
 </form>

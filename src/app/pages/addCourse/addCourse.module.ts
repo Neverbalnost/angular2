@@ -9,6 +9,9 @@ import { routes } from './addCourse.routes';
 // custom components
 import { AddCourseComponent } from './addCourse.component';
 
+// custom form controls
+import { DateInputModule } from './../../core/components/forms/date-input/dateInput.module';
+
 @NgModule({
 	declarations: [
 		AddCourseComponent
@@ -17,7 +20,8 @@ import { AddCourseComponent } from './addCourse.component';
 		routes,
 		FormsModule,
 		ReactiveFormsModule,
-		CommonModule
+		CommonModule,
+		DateInputModule
 	],
 	providers: []
 })

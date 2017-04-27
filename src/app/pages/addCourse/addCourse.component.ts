@@ -1,6 +1,6 @@
 import { Router } from '@angular/router';
 import { Component, ViewEncapsulation, OnInit, OnDestroy } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { DurationPipe } from './../../core/pipes';
 
 @Component({
@@ -14,10 +14,11 @@ export class AddCourseComponent implements OnInit, OnDestroy {
 
 	public duration: number;
 	public durationFormated: string;
+	public today = new Date().toLocaleDateString();
 
 	public newCourseForm = this.fb.group({
-		title: [''],
-		start: [''],
+		title: ['', Validators.maxLength(50)],
+		start: [this.today, Validators.maxLength(500)],
 		id: [''],
 		duration: [''],
 		desc: ['']
