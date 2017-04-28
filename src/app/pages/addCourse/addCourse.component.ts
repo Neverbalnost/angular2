@@ -17,14 +17,18 @@ export class AddCourseComponent implements OnInit, OnDestroy {
 	public today = new Date().toLocaleDateString();
 
 	public newCourseForm = this.fb.group({
-		title: ['', Validators.maxLength(50)],
-		start: [this.today, Validators.maxLength(500)],
-		id: [''],
-		duration: [''],
-		desc: ['']
+		title: ['', [Validators.maxLength(50), Validators.required]],
+		start: [this.today, [Validators.maxLength(500), Validators.required]],
+		id: ['', Validators.required],
+		duration: ['', Validators.required],
+		author: ['', Validators.required],
+		desc: ['', Validators.required]
 	});
 
 	constructor(public fb: FormBuilder, private format: DurationPipe) {
+	}
+	public sendCourseData(data) {
+		console.log('Data submitted: ', data)
 	}
 
 	public formatDurarion() {

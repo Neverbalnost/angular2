@@ -11,6 +11,7 @@ import { AddCourseComponent } from './addCourse.component';
 
 // custom form controls
 import { DateInputModule } from './../../core/components/forms/date-input/dateInput.module';
+import { AuthorsInputModule } from './../../core/components/forms/authors-check/authorsCheck.module';
 
 @NgModule({
 	declarations: [
@@ -21,7 +22,8 @@ import { DateInputModule } from './../../core/components/forms/date-input/dateIn
 		FormsModule,
 		ReactiveFormsModule,
 		CommonModule,
-		DateInputModule
+		DateInputModule,
+		AuthorsInputModule
 	],
 	providers: []
 })

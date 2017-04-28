@@ -28,7 +28,7 @@ export class DateInputComponent implements ControlValueAccessor {
 	private data: any;
 
 	public writeValue(date: any) {
-		this.date = new Date(date);
+		this.date = date;
 	}
 
 	public registerOnChange(fn: any) {
@@ -39,11 +39,14 @@ export class DateInputComponent implements ControlValueAccessor {
 
 	public onChange(event) {
 
-		let newValue = event.target.value;
+		let newValue = new Date(event.target.value);
 
-		this.data = new Date(newValue);
+		if (isNaN(newValue.getTime())) {
+			this.data = null;
+		} else {
+			this.data = newValue;
+		}
 		console.log('Got input!', this.data);
-
 		this.propagateChange(this.data);
 	}
 
