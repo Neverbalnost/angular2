@@ -1,0 +1,12 @@
+{
+	"authors": [
+		{"name": "Batman", "checked": false},
+		{"name": "Spiderman", "checked": false},
+		{"name": "Deadpool", "checked": false},
+		{"name": "Green Lantern", "checked": false},
+		{"name": "Black Widow", "checked": false},
+		{"name": "Mr. Manhattan", "checked": false},
+		{"name": "Wolverine", "checked": false},
+		{"name": "Rogue", "checked": false}
+	]
+}
