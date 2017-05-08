@@ -3,6 +3,7 @@ import { Component, ViewEncapsulation, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../../core/services';
 import { LoaderService } from '../../core/services';
+import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
 	selector: 'login-page',
@@ -15,10 +16,16 @@ export class LoginPageComponent implements OnInit, OnDestroy {
 	private isLoggedIn: boolean = false;
 	private authServiceSubscription: Subscription;
 
+	public loginForm = this.fb.group({
+		login: ['', Validators.required],
+		password: ['', Validators.required]
+	});
+
 	constructor(
 		private authService: AuthService,
 		private router: Router,
-		private loaderService: LoaderService) {
+		private loaderService: LoaderService,
+		public fb: FormBuilder) {
 	}
 
 	public ngOnInit() {
@@ -34,11 +41,11 @@ export class LoginPageComponent implements OnInit, OnDestroy {
 		this.authServiceSubscription.unsubscribe();
 	}
 
-	private login(name, pass) {
+	private login(data) {
 		let self = this;
 		this.loaderService.Show();
 		setTimeout(() => { self.loaderService.Hide(); }, 300);
 		this.authService.changeUserInfo(name);
-		this.authService.Login(name, pass);
+		this.authService.Login(data.login, data.password);
 	}
 }

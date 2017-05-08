@@ -1,15 +1,15 @@
 <div class="login-page">
-	<div class="login-field">
-		<label>Your Heroic Name</label>
-		<input [(ngModel)]="username" type="text">
-	</div>
-	<div class="login-field">
-		<label>Your Super Secret Password</label>
-		<input [(ngModel)]="password" type="password">
-	</div>
-	<div class="login-field">
-		<button (click)="login(username, password)">
-			Go!
-		</button>
-	</div>
+	<form [formGroup]="loginForm" (ngSubmit)="login(loginForm.value)">
+		<div class="login-field">
+			<label>Your Heroic Name</label>
+			<input class="form-control" formControlName="login" type="text">
+		</div>
+		<div class="login-field">
+			<label>Your Super Secret Password</label>
+			<input class="form-control" formControlName="password" type="password">
+		</div>
+		<div class="login-field">
+			<button [disabled]="!loginForm.valid" class="btn btn-primary" type="submit">Go!</button>
+		</div>
+	</form>
 </div>
