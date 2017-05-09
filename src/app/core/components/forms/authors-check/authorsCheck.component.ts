@@ -1,4 +1,4 @@
-import { Component, Input, forwardRef } from '@angular/core';
+import { Component, Input, forwardRef, OnInit } from '@angular/core';
 import {
 	ControlValueAccessor,
 	NG_VALUE_ACCESSOR,
@@ -6,6 +6,8 @@ import {
 	FormControl,
 	Validator
 } from '@angular/forms';
+import { Observable } from 'rxjs/Observable';
+import { Response, Request, RequestOptions, RequestMethod, Http } from '@angular/http';
 
 @Component({
 	selector: 'authors-input',
@@ -33,20 +35,26 @@ import {
 		multi: true,
 	}]
 })
-export class AuthorsInputComponent implements ControlValueAccessor, Validator {
+export class AuthorsInputComponent implements OnInit, ControlValueAccessor, Validator {
 	private jsonString: string;
 	private parseError: boolean;
 	private data: any[] = [];
-	private heroList = [
-		{name: 'Batman', checked: false},
-		{name: 'Spiderman', checked: false},
-		{name: 'Deadpool', checked: false},
-		{name: 'Green Lantern', checked: false},
-		{name: 'Black Widow', checked: false},
-		{name: 'Mr. Manhattan', checked: false},
-		{name: 'Wolverine', checked: false},
-		{name: 'Rogue', checked: false}
-	];
+	private heroList: [{}];
+
+	constructor(private http: Http) {}
+
+	public ngOnInit() {
+		this.getAuthors();
+	}
+
+	public getAuthors() {
+		return this.http.get("authors")
+			.map((response: Response) => response.json())
+			.subscribe((response) => {
+				console.log(response);
+				this.heroList = response;
+			});
+	}
 
 	public writeValue(obj: any) {
 	}
