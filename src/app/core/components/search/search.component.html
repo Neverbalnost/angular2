@@ -1,5 +1,5 @@
-<div class="search">
-	<input [(ngModel)]="searchString" type="text" placeholder="Name fragment or date">
-	<button (click)="clickFind($event)">Find</button>
-	<button (click)="redirectToAdd()" class="add-course">Add Course</button>
+<div class="search form-inline">
+	<input class="form-control mr-sm-2 mb-0" [(ngModel)]="searchString" type="text" placeholder="Name fragment or date">
+	<button class="btn btn-secondary mr-sm-2 mb-0" (click)="clickFind($event)">Find</button>
+	<button class="btn btn-primary add-course mr-sm-2 mb-0" (click)="redirectToAdd()">Add Course</button>
 </div>
