@@ -1,6 +1,6 @@
 import { Router } from '@angular/router';
 import { Component, ViewEncapsulation, OnInit, OnDestroy } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { DurationPipe } from './../../core/pipes';
 
 @Component({
@@ -14,16 +14,21 @@ export class AddCourseComponent implements OnInit, OnDestroy {
 
 	public duration: number;
 	public durationFormated: string;
+	public today = new Date().toLocaleDateString();
 
 	public newCourseForm = this.fb.group({
-		title: [''],
-		start: [''],
-		id: [''],
-		duration: [''],
-		desc: ['']
+		title: ['', [Validators.maxLength(50), Validators.required]],
+		start: [this.today, Validators.required],
+		id: ['', Validators.required],
+		duration: ['', Validators.required],
+		author: ['', Validators.required],
+		desc: ['', [Validators.maxLength(500), Validators.required]]
 	});
 
 	constructor(public fb: FormBuilder, private format: DurationPipe) {
+	}
+	public sendCourseData(data) {
+		console.log('Data submitted: ', data)
 	}
 
 	public formatDurarion() {
