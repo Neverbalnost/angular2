@@ -11,10 +11,9 @@ import {
 		`
 		<input
 			class="form-control"
-			placeholder="mm/dd/yyyy"
+			placeholder="dd/mm/yyyy"
 			[value]="date" 
-			(input)="onChange($event)" 
-			(keyup)="onChange($event)">
+			(input)="onChange($event)">
 		`,
 	providers: [
 	{
@@ -39,7 +38,9 @@ export class DateInputComponent implements ControlValueAccessor {
 
 	public onChange(event) {
 
-		let newValue = new Date(event.target.value);
+		const dateStringArr = event.target.value.split('/')
+
+		const newValue = new Date(`${dateStringArr[1]}/${dateStringArr[0]}/${dateStringArr[2]}`);
 
 		if (isNaN(newValue.getTime())) {
 			this.data = null;

@@ -20,8 +20,12 @@ a.active {
 	position: static;
 }
 
-.ng-invalid {
+.ng-dirty.ng-invalid {
 	border-color: red;
+
+	&>input {
+		border-color: red;
+	}
 }
 
 authors-input {

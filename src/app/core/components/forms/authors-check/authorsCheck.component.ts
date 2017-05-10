@@ -7,23 +7,24 @@ import {
 	Validator
 } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
-import { Response, Request, RequestOptions, RequestMethod, Http } from '@angular/http';
+import { AuthorsService } from '../../../services';
 
 @Component({
 	selector: 'authors-input',
 	template:
 		`
-		<div *ngFor="let hero of heroList" >
+		<div *ngFor="let author of authorsList" >
 			<input 
 				type="checkbox"
-				name="{{hero.name}}"
-				id="{{hero.name}}"
-				[checked]="hero.checked"
+				name="{{author.name}}"
+				id="{{author.name}}"
+				[checked]="author.checked"
 				(change)="onChange($event)">
-			<label for="{{hero.name}}">{{hero.name}}</label>
+			<label for="{{author.name}}">{{author.name}}</label>
 		</div>
 		`,
 	providers: [
+		AuthorsService,
 	{
 		provide: NG_VALUE_ACCESSOR,
 		useExisting: forwardRef(() => AuthorsInputComponent),
@@ -39,21 +40,15 @@ export class AuthorsInputComponent implements OnInit, ControlValueAccessor, Vali
 	private jsonString: string;
 	private parseError: boolean;
 	private data: any[] = [];
-	private heroList: [{}];
+	private authorsList: [{}];
 
-	constructor(private http: Http) {}
+	constructor(private authorsService: AuthorsService) {}
 
 	public ngOnInit() {
-		this.getAuthors();
-	}
-
-	public getAuthors() {
-		return this.http.get("authors")
-			.map((response: Response) => response.json())
-			.subscribe((response) => {
+		this.authorsService.getAuthors().subscribe((response) => {
 				console.log(response);
-				this.heroList = response;
-			});
+				this.authorsList = response;
+			});;
 	}
 
 	public writeValue(obj: any) {
@@ -67,7 +62,7 @@ export class AuthorsInputComponent implements OnInit, ControlValueAccessor, Vali
 		const isValid = this.data.length > 0;
 		console.log(isValid);
 		return (isValid) ? null : {
-			nothincgCheckedError: {
+			nothingCheckedError: {
 				valid: false,
 			},
 		};
@@ -83,7 +78,7 @@ export class AuthorsInputComponent implements OnInit, ControlValueAccessor, Vali
 			this.data.push(name);
 		} else {
 			this.data = this.data.filter((el) => {
-				return el != name;
+				return el !== name;
 			})
 		}
 		this.propagateChange(this.data);
